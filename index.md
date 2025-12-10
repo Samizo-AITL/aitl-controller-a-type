@@ -29,7 +29,7 @@ demos/05_aitl_full_demo.py
 ```
 
 ### ▶ **Full AITL Ideal Output**
-![AITL Full Demo Ideal](data/aitl_full_demo_ideal.png)
+<img src="{{ '/aitl-controller-a-type/data/aitl_full_demo_ideal.png' | absolute_url }}" width="80%">
 
 ---
 
