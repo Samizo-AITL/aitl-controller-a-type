@@ -29,7 +29,13 @@ demos/05_aitl_full_demo.py
 ```
 
 ### ▶ **Full AITL Ideal Output**
-<img src="{{ '/aitl-controller-a-type/data/aitl_full_demo_ideal.png' | absolute_url }}" width="80%">
+
+<img
+  src="https://samizo-aitl.github.io/aitl-controller-a-type/data/aitl_full_demo_ideal.png"
+  alt="AITL Full Demo Ideal"
+  style="display:block; margin:1.5rem auto; width:80%; max-width:100%;"
+/>
+
 
 ---
 
