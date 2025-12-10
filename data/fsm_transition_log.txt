@@ -1,0 +1,7 @@
+0, normal, [normal] 0
+0.3, normal, [normal] 0.3
+1.5, high, [high] 1.5
+0.2, normal, [normal] 0.2
+-1.5, low, [low] -1.5
+-0.4, normal, [normal] -0.4
+0.1, normal, [normal] 0.1
