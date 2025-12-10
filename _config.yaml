@@ -1,13 +1,38 @@
-title: SemiDevKit
-description: Semiconductor device modeling and VLSI design educational toolkit
+# ============================================================
+# AITL Controller A-Type — GitHub Pages configuration
+# ============================================================
+
+title: AITL Controller A-Type
+description: Three-layer control architecture (PID × FSM × LLM) educational controller
 lang: en
 
+# ------ GitHub Pages URL settings ------
+# あなたの GitHub Pages の URL に合わせて設定
 url: "https://samizo-aitl.github.io"
-baseurl: "/SemiDevKit"   # Project site. If publishing at root, set this to "".
+baseurl: "/aitl-controller-a-type"    # ← このリポジトリ名に合わせる
 
+# ------ Theme ------
 theme: minima
 
+# ------ Markdown settings ------
 markdown: kramdown
 kramdown:
   input: GFM
+  hard_wrap: false
+  math_engine: mathjax
+  syntax_highlighter: rouge
 
+# ------ Plugins allowed by GitHub Pages ------
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# ------ Include/Exclude ------
+exclude:
+  - "README.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+
+# ------ Build options ------
+future: true
+markdown_ext: "md,markdown"
