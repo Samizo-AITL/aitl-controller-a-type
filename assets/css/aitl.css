@@ -1,195 +1,98 @@
 /*
-  ==============================================
-   AITL Controller A-Type – Project UI Styling
-   Based on SemiDevKit layout, optimized for:
-   - Control architecture docs (PID/FSM/LLM)
-   - Jekyll GitHub Pages
-   - Readability & research documentation
-  ==============================================
+  AITL Controller A-Type layout (based on SemiDevKit)
 */
 
-.semidevkit-root {
+.aitl-root {
   font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI",
     Helvetica, Arial, sans-serif;
-  line-height: 1.65;
-  color: #1c1f23;
+  line-height: 1.6;
+  color: #24292e;
   background: #ffffff;
   margin: 0;
 }
 
-/* ==========================================================
-   Layout: Main Page Container
-   ========================================================== */
-
-.semidevkit-root .wrapper,
-.semidevkit-root .main-container {
+/* Main wrapper */
+.aitl-root .wrapper,
+.aitl-root .main-container {
   max-width: 980px;
   margin: 0 auto;
-  padding: 1.8rem 1rem;
+  padding: 1.5rem 1rem;
 }
 
-/* ==========================================================
-   Header (AITL Blue Branding)
-   ========================================================== */
-
-.semidevkit-root .page-header {
-  border-bottom: 1px solid #d0d7de;
-  background: #f4f7ff;
-  padding: 1rem 0;
+/* Page header */
+.aitl-root .page-header {
+  border-bottom: 1px solid #e1e4e8;
+  background: #fafbfc;
 }
 
-.semidevkit-root .site-title {
-  font-size: 1.9rem;
+.aitl-root .site-title {
+  font-size: 1.8rem;
   margin: 0;
-  font-weight: 700;
-  letter-spacing: -0.5px;
 }
 
-.semidevkit-root .site-title a {
+.aitl-root .site-title a {
   text-decoration: none;
-  color: #0a3d91;   /* AITL Blue */
+  color: #24292e;
 }
 
-.semidevkit-root .site-description {
+.aitl-root .site-description {
   margin: 0.4rem 0 0.2rem;
-  color: #4b5563;
-  font-size: 1rem;
+  color: #586069;
+  font-size: 0.98rem;
 }
 
-/* ==========================================================
-   Headings – optimized for technical docs
-   ========================================================== */
-
-.semidevkit-root h1,
-.semidevkit-root h2,
-.semidevkit-root h3,
-.semidevkit-root h4 {
-  font-weight: 650;
-  margin-top: 2.0rem;
-  margin-bottom: 0.9rem;
-  scroll-margin-top: 90px; /* anchor link offset */
+/* Headings */
+.aitl-root h1,
+.aitl-root h2,
+.aitl-root h3,
+.aitl-root h4 {
+  font-weight: 600;
+  margin-top: 1.6rem;
+  margin-bottom: 0.7rem;
 }
 
-/* Strong structural headings */
-.semidevkit-root h1,
-.semidevkit-root h2 {
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 0.35rem;
+.aitl-root h1,
+.aitl-root h2 {
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3rem;
 }
 
-/* Research document scale */
-.semidevkit-root h1 {
-  font-size: 1.9rem;
-  color: #0a3d91;
+.aitl-root h1 {
+  font-size: 1.8rem;
 }
 
-.semidevkit-root h2 {
-  font-size: 1.55rem;
-  color: #1f2937;
+.aitl-root h2 {
+  font-size: 1.4rem;
 }
 
-.semidevkit-root h3 {
-  font-size: 1.25rem;
-  color: #111827;
+.aitl-root h3 {
+  font-size: 1.2rem;
 }
 
-.semidevkit-root h4 {
-  font-size: 1.1rem;
-  color: #333;
+.aitl-root p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.6rem;
 }
 
-.semidevkit-root p {
-  margin: 0.6rem 0 0.9rem;
-  line-height: 1.65;
+/* Links */
+.aitl-root a {
+  color: #0366d6;
 }
 
-/* ==========================================================
-   Links
-   ========================================================== */
-
-.semidevkit-root a {
-  color: #0b56c4; /* AITL Accent Blue */
-}
-
-.semidevkit-root a:hover {
+.aitl-root a:hover {
   text-decoration: underline;
 }
 
-/* ==========================================================
-   Highlighted AITL Control Layers
-   (Useful in documentation: PID / FSM / LLM)
-   ========================================================== */
-
-.aitl-layer {
-  padding: 0.5rem 0.7rem;
-  border-left: 4px solid #0b56c4;
-  background: #f0f6ff;
-  margin: 1rem 0;
-  font-weight: 600;
-}
-
-/*
-Usage example:
-
-<div class="aitl-layer">PID Layer – Inner-loop real-time control</div>
-*/
-
-/* ==========================================================
-   Footer
-   ========================================================== */
-
-.semidevkit-root .page-footer {
-  border-top: 1px solid #d1d5db;
-  margin-top: 3rem;
-  padding: 1.5rem 0 1.8rem;
+/* Footer */
+.aitl-root .page-footer {
+  border-top: 1px solid #e1e4e8;
+  margin-top: 2rem;
+  padding: 1.2rem 0 1.5rem;
   font-size: 0.9rem;
   color: #6a737d;
-  background: #f9fafc;
+  background: #fafbfc;
 }
 
-.semidevkit-root .page-footer a {
-  color: #0b56c4;
-}
-
-/* ==========================================================
-   Images – research-friendly (centered)
-   ========================================================== */
-
-.semidevkit-root img {
-  display: block;
-  margin: 1.2rem auto;
-  max-width: 100%;
-  border-radius: 4px;
-}
-
-/* ==========================================================
-   Callout boxes (info, warning)
-   ========================================================== */
-
-.callout-info {
-  border-left: 4px solid #0b56c4;
-  background: #eef4ff;
-  padding: 0.8rem 1rem;
-  margin: 1rem 0;
-  border-radius: 4px;
-}
-
-.callout-warn {
-  border-left: 4px solid #c43d0b;
-  background: #fff4ee;
-  padding: 0.8rem 1rem;
-  margin: 1rem 0;
-  border-radius: 4px;
-}
-
-/* ==========================================================
-   Strong emphasis for equations or definitions
-   ========================================================== */
-
-.eq-highlight {
-  font-weight: 600;
-  padding: 0.2rem 0.3rem;
-  background: #fff8dc;
-  border-left: 3px solid #f1c40f;
-  display: inline-block;
+.aitl-root .page-footer a {
+  color: #0366d6;
 }
