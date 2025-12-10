@@ -1,0 +1,78 @@
+@import "minima";
+
+/* ================================
+   Common utilities
+   ================================ */
+
+/* Center Mermaid diagrams */
+.mermaid {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 960px;
+  text-align: center;
+}
+
+/* GitHub-like tables (safe even if theme changes) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  border-spacing: 0;
+}
+
+th,
+td {
+  border: 1px solid #dfe2e5;
+  padding: 0.6em 0.8em;
+  vertical-align: top;
+}
+
+th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+
+/* Inline code */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+  background: #f6f8fa;
+  border-radius: 3px;
+  padding: 0.1em 0.25em;
+}
+
+/* Code blocks */
+pre {
+  background: #f6f8fa;
+  border-radius: 4px;
+  padding: 0.9em 1em;
+  overflow-x: auto;
+  border: 1px solid #e1e4e8;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Blockquotes */
+blockquote {
+  margin: 1em 0;
+  padding: 0.6em 0.9em;
+  border-left: 0.25em solid #dfe2e5;
+  color: #586069;
+  background: #f9fafb;
+}
+
+/* Badges (e.g., shields.io) */
+a img[alt*="badge"],
+a img[alt*="Badge"] {
+  vertical-align: middle;
+}
+
+/* Lists a bit tighter */
+ul,
+ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.75em;
+}
