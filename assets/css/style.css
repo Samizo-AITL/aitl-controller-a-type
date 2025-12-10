@@ -1,30 +1,51 @@
+/* ===========================================
+   Base theme: import Minima (Jekyll default)
+   =========================================== */
 @import "minima";
 
-/* ================================
-   Common utilities
-   ================================ */
+/* ===========================================
+   Global Layout Tweaks
+   =========================================== */
 
-/* Center Mermaid diagrams */
+/* 全体の可読性向上 */
+body {
+  line-height: 1.65;
+  font-size: 17px;
+  color: #24292f;
+}
+
+/* コンテンツ幅を制御（広すぎ防止） */
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===========================================
+   Mermaid diagrams
+   =========================================== */
+
 .mermaid {
   display: block;
-  margin: 1.5rem auto;
-  max-width: 960px;
+  margin: 1.8rem auto;
+  max-width: 900px;
   text-align: center;
 }
 
-/* GitHub-like tables (safe even if theme changes) */
+/* ===========================================
+   Tables (GitHub style)
+   =========================================== */
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1em 0;
-  border-spacing: 0;
+  margin: 1.2em 0;
 }
 
 th,
 td {
-  border: 1px solid #dfe2e5;
+  border: 1px solid #d0d7de;
   padding: 0.6em 0.8em;
-  vertical-align: top;
 }
 
 th {
@@ -32,20 +53,22 @@ th {
   font-weight: 600;
 }
 
-/* Inline code */
+/* ===========================================
+   Code (inline/block)
+   =========================================== */
+
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.95em;
   background: #f6f8fa;
   border-radius: 3px;
   padding: 0.1em 0.25em;
 }
 
-/* Code blocks */
 pre {
   background: #f6f8fa;
-  border-radius: 4px;
-  padding: 0.9em 1em;
+  border-radius: 6px;
+  padding: 1em;
   overflow-x: auto;
   border: 1px solid #e1e4e8;
 }
@@ -55,24 +78,58 @@ pre code {
   padding: 0;
 }
 
-/* Blockquotes */
+/* ===========================================
+   Blockquotes
+   =========================================== */
+
 blockquote {
   margin: 1em 0;
   padding: 0.6em 0.9em;
-  border-left: 0.25em solid #dfe2e5;
-  color: #586069;
+  border-left: 0.25em solid #d0d7de;
   background: #f9fafb;
+  color: #57606a;
 }
 
-/* Badges (e.g., shields.io) */
+/* ===========================================
+   Images
+   =========================================== */
+
+/* Markdown画像を中央寄せ＆最大幅制限 */
+img {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+}
+
+/* ===========================================
+   Lists tuning
+   =========================================== */
+ul,
+ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.75em;
+}
+
+/* ===========================================
+   Badge alignment
+   =========================================== */
 a img[alt*="badge"],
 a img[alt*="Badge"] {
   vertical-align: middle;
 }
 
-/* Lists a bit tighter */
-ul,
-ol {
-  margin-top: 0.5em;
-  margin-bottom: 0.75em;
+/* ===========================================
+   Page Header / Footer
+   =========================================== */
+
+.page-header {
+  margin-bottom: 1.8rem;
+}
+
+.page-footer {
+  margin-top: 2rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid #e1e4e8;
+  font-size: 0.9rem;
+  color: #6e7781;
 }
