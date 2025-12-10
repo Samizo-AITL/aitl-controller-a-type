@@ -1,39 +1,21 @@
-# ============================================================
-# AITL Controller A-Type — GitHub Pages configuration
-# ============================================================
-
 title: AITL Controller A-Type
 description: Three-layer control architecture (PID × FSM × LLM) educational controller
 lang: en
 
-# ------ GitHub Pages URL settings ------
 url: "https://samizo-aitl.github.io"
 baseurl: "/aitl-controller-a-type"
 
-# ------ IMPORTANT: Disable minima ------
-# GitHub Pages のデフォルトテーマを使用しない
-# これをコメントアウトしない限り、SemiDevKit の見た目には絶対にならない
-# theme: minima   ← 必ず削除またはコメントアウト
+theme: minima
 
-# ------ Markdown settings ------
 markdown: kramdown
 kramdown:
   input: GFM
-  hard_wrap: false
   math_engine: mathjax
-  syntax_highlighter: rouge
 
-# ------ Plugins allowed by GitHub Pages ------
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-# ------ Include/Exclude ------
 exclude:
-  - "README.md"
-  - "Gemfile"
-  - "Gemfile.lock"
-
-# ------ Build options ------
-future: true
-markdown_ext: "md,markdown"
+  - Gemfile
+  - Gemfile.lock
