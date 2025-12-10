@@ -1,7 +1,25 @@
+<!-- ========== Mermaid ========== -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
-  if (window.mermaid) {
-    mermaid.initialize({ startOnLoad: true });
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.mermaid) {
+      mermaid.initialize({ startOnLoad: true });
+    }
+  });
 </script>
 
+<!-- ========== MathJax (LaTeX) ========== -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<!-- ========== AITL Controller Stylesheet ========== -->
+<link rel="stylesheet" href="{{ '/assets/css/aitl.css' | relative_url }}">
