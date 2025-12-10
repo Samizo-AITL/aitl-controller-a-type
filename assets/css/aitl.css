@@ -1,0 +1,98 @@
+/*
+  SemiDevKit custom layout (GitHub-like, English only)
+*/
+
+.semidevkit-root {
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #24292e;
+  background: #ffffff;
+  margin: 0;
+}
+
+/* Main wrapper (similar to GitHub README width) */
+.semidevkit-root .wrapper,
+.semidevkit-root .main-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Page header */
+.semidevkit-root .page-header {
+  border-bottom: 1px solid #e1e4e8;
+  background: #fafbfc;
+}
+
+.semidevkit-root .site-title {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.semidevkit-root .site-title a {
+  text-decoration: none;
+  color: #24292e;
+}
+
+.semidevkit-root .site-description {
+  margin: 0.4rem 0 0.2rem;
+  color: #586069;
+  font-size: 0.98rem;
+}
+
+/* Headings with subtle underline (GitHub style) */
+.semidevkit-root h1,
+.semidevkit-root h2,
+.semidevkit-root h3,
+.semidevkit-root h4 {
+  font-weight: 600;
+  margin-top: 1.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.semidevkit-root h1,
+.semidevkit-root h2 {
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3rem;
+}
+
+.semidevkit-root h1 {
+  font-size: 1.8rem;
+}
+
+.semidevkit-root h2 {
+  font-size: 1.4rem;
+}
+
+.semidevkit-root h3 {
+  font-size: 1.2rem;
+}
+
+.semidevkit-root p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Links */
+.semidevkit-root a {
+  color: #0366d6;
+}
+
+.semidevkit-root a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.semidevkit-root .page-footer {
+  border-top: 1px solid #e1e4e8;
+  margin-top: 2rem;
+  padding: 1.2rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: #6a737d;
+  background: #fafbfc;
+}
+
+.semidevkit-root .page-footer a {
+  color: #0366d6;
+}
