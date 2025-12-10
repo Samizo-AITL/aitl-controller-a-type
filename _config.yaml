@@ -1,1 +1,13 @@
+title: SemiDevKit
+description: Semiconductor device modeling and VLSI design educational toolkit
+lang: en
+
+url: "https://samizo-aitl.github.io"
+baseurl: "/SemiDevKit"   # Project site. If publishing at root, set this to "".
+
+theme: minima
+
+markdown: kramdown
+kramdown:
+  input: GFM
 
