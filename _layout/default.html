@@ -24,30 +24,29 @@
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']]
       },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
     };
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-  <!-- Mermaid -->
+  <!-- Mermaid / extra head includes -->
   {%- include head.html -%}
 </head>
 
 <body class="aitl-root">
+
   <header class="page-header">
     <div class="wrapper">
-      <h1 class="site-title">
+      <h2 class="site-title">
         <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      </h1>
+      </h2>
       {% if site.description %}
       <p class="site-description">{{ site.description }}</p>
       {% endif %}
     </div>
   </header>
 
-  <main class="main-container wrapper">
+  <main class="main-container">
     {{ content }}
   </main>
 
@@ -60,5 +59,6 @@
       </p>
     </div>
   </footer>
+
 </body>
 </html>
