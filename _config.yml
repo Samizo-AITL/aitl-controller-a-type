@@ -1,29 +1,14 @@
-title: AITL Controller A-Type
-description: Three-layer control architecture (PID × FSM × LLM) educational controller
+title: "AITL Controller A-Type"
+description: "Educational project for implementing and analyzing the AITL Controller A-Type architecture."
 lang: en
 
 url: "https://samizo-aitl.github.io"
 baseurl: "/aitl-controller-a-type"
 
-# IMPORTANT → Disable Minima theme because SCSS imports handle it
-# theme: minima
+theme: null   # ← 最重要（Minima を殺す）
 
 markdown: kramdown
 kramdown:
   input: GFM
-  math_engine: mathjax
   syntax_highlighter: rouge
-  hard_wrap: false
-  auto_ids: true
-
-highlighter: rouge
-
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-
-permalink: pretty
-
-exclude:
-  - Gemfile
-  - Gemfile.lock
+  math_engine: mathjax
