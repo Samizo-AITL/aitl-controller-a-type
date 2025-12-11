@@ -1,7 +1,9 @@
 /*
-  AITL Controller A-Type layout (SemiDevKit-aligned)
+  AITL Controller A-Type layout
+  (Aligned with SemiDevKit GitHub-like style)
 */
 
+/* Root: inherit full SemiDevKit baseline */
 .aitl-root {
   font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI",
     Helvetica, Arial, sans-serif;
@@ -11,7 +13,7 @@
   margin: 0;
 }
 
-/* Main wrapper */
+/* Wrapper: match SemiDevKit 980px rule */
 .aitl-root .wrapper,
 .aitl-root .main-container {
   max-width: 980px;
@@ -19,14 +21,16 @@
   padding: 1.5rem 1rem;
 }
 
-/* Page header */
+/* -------------------------------
+   Header (GitHub-like / SemiDevKit)
+-------------------------------- */
 .aitl-root .page-header {
   border-bottom: 1px solid #e1e4e8;
   background: #fafbfc;
 }
 
 .aitl-root .site-title {
-  font-size: 2.0rem;
+  font-size: 1.9rem; /* Slightly stronger than SemiDevKit for A-type docs */
   margin: 0;
 }
 
@@ -41,7 +45,9 @@
   font-size: 0.98rem;
 }
 
-/* Headings */
+/* -------------------------------
+   Headings (SemiDevKit aligned)
+-------------------------------- */
 .aitl-root h1,
 .aitl-root h2,
 .aitl-root h3,
@@ -51,28 +57,37 @@
   margin-bottom: 0.7rem;
 }
 
-/* SemiDevKit-style: underline only for h1 */
-.aitl-root h1 {
-  font-size: 2.1rem;
+/* SemiDevKit style: h1, h2 get underline */
+.aitl-root h1,
+.aitl-root h2 {
   border-bottom: 1px solid #eaecef;
   padding-bottom: 0.3rem;
 }
 
+/* AITL stronger h1 (controller spec sheets) */
+.aitl-root h1 {
+  font-size: 2.1rem; /* Keep your A-Type weight */
+}
+
+/* h2 stays close to SemiDevKit but with AITL emphasis */
 .aitl-root h2 {
-  font-size: 1.5rem;
-  border-bottom: none;
+  font-size: 1.45rem;
 }
 
+/* h3 matches SemiDevKit scale */
 .aitl-root h3 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
+/* Paragraphs */
 .aitl-root p {
   margin-top: 0.4rem;
   margin-bottom: 0.6rem;
 }
 
-/* Links */
+/* -------------------------------
+   Links
+-------------------------------- */
 .aitl-root a {
   color: #0366d6;
 }
@@ -81,7 +96,9 @@
   text-decoration: underline;
 }
 
-/* Footer */
+/* -------------------------------
+   Footer (SemiDevKit aligned)
+-------------------------------- */
 .aitl-root .page-footer {
   border-top: 1px solid #e1e4e8;
   margin-top: 2rem;
