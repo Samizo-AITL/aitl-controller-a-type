@@ -1,14 +1,33 @@
 /* ================================
-   SemiDevKit Layout Harmonization
-   (AITL Controller A-type 用)
+   SemiDevKit Layout v1 (Unified)
+   GitHub-like × Technical Docs
+   For PDH v2 / AITL / Edusemi
 ================================ */
 
-/* -------------------------------
-   Headings (SemiDevKit style)
--------------------------------- */
+/* Import Minima base */
+@import "minima";
+
+/* ===========================================
+   Mermaid Diagrams (center + responsive)
+=========================================== */
+.mermaid {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 960px;
+  text-align: center;
+}
+
+.mermaid svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ===========================================
+   Headings (SemiDevKit Documentation Style)
+=========================================== */
 h1 {
   font-size: 2.2rem;
-  margin-top: 2rem;
+  margin-top: 2.3rem;
   margin-bottom: 1.2rem;
   font-weight: 600;
   line-height: 1.25;
@@ -20,7 +39,7 @@ h2 {
   margin-bottom: 1rem;
   font-weight: 600;
   line-height: 1.35;
-  border-bottom: none; /* GitHub-style underline を消す */
+  border-bottom: none;
 }
 
 h3 {
@@ -31,17 +50,24 @@ h3 {
   line-height: 1.4;
 }
 
-/* -------------------------------
+/* 最大幅を揃えて読みやすく */
+h1, h2, h3 {
+  max-width: 960px;
+}
+
+/* ===========================================
    Paragraphs / Lists
--------------------------------- */
+=========================================== */
 p {
   margin-top: 0.6rem;
   margin-bottom: 1rem;
   line-height: 1.65;
   font-size: 1.05rem;
+  max-width: 960px;
 }
 
-ul, ol {
+ul,
+ol {
   margin-top: 0.3rem;
   margin-bottom: 1rem;
   padding-left: 1.4rem;
@@ -49,18 +75,91 @@ ul, ol {
   font-size: 1.02rem;
 }
 
-/* -------------------------------
+/* ===========================================
+   Blockquotes (enhanced GitHub style)
+=========================================== */
+blockquote {
+  margin: 1em 0;
+  padding: 0.6em 0.9em;
+  border-left: 0.25em solid #dfe2e5;
+  color: #586069;
+  background: #f3f4f6;
+  max-width: 960px;
+}
+
+/* ===========================================
+   Tables (GitHub-like, tuned for reading)
+=========================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0 1.5rem 0;
+  border-spacing: 0;
+
+  /* スマホで溢れないように */
+  display: block;
+  overflow-x: auto;
+}
+
+th,
+td {
+  border: 1px solid #dfe2e5;
+  padding: 0.6em 0.8em;
+  vertical-align: top;
+}
+
+th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+
+/* ===========================================
+   Inline code
+=========================================== */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+  background: #f6f8fa;
+  border-radius: 3px;
+  padding: 0.1em 0.25em;
+}
+
+/* ===========================================
+   Code blocks
+=========================================== */
+pre {
+  background: #f6f8fa;
+  border-radius: 4px;
+  padding: 0.9em 1em;
+  overflow-x: auto;
+  border: 1px solid #e1e4e8;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.45;
+
+  /* 長い行の折り返し（技術文書向け） */
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* ===========================================
    Horizontal Rules
--------------------------------- */
+=========================================== */
 hr {
-  margin: 2rem 0 1.5rem 0;
+  margin: 2rem 0 1.8rem 0;
   border: none;
   border-top: 1px solid #ddd;
 }
 
-/* -------------------------------
-   Links
--------------------------------- */
+/* ===========================================
+   Links (GitHub Docs style)
+=========================================== */
 a {
   color: #0366d6;
   text-decoration: none;
@@ -70,34 +169,63 @@ a:hover {
   text-decoration: underline;
 }
 
-/* -------------------------------
-   Section container (optional)
--------------------------------- */
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  a {
+    color: #58a6ff;
+  }
+}
+
+/* ===========================================
+   Badges (shields.io)
+=========================================== */
+a img[alt*="badge"],
+a img[alt*="Badge"] {
+  vertical-align: middle;
+}
+
+/* ===========================================
+   Section block spacing
+=========================================== */
 section {
   margin-bottom: 2rem;
 }
 
-/* -------------------------------
-   Title spacing (SemiDevKit style)
--------------------------------- */
+/* ===========================================
+   Page titles (minima override)
+=========================================== */
 .page-title,
 .post-title {
   margin-bottom: 1rem;
 }
 
-/* -------------------------------
-   Tables (already present but tuned)
--------------------------------- */
-table {
-  margin-top: 1.2rem;
-  margin-bottom: 1.5rem;
+/* ===========================================
+   Lists tighter
+=========================================== */
+ul,
+ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.75em;
 }
 
-/* -------------------------------
-   Code & Pre blocks (semi-modern GitHub style)
--------------------------------- */
-pre {
-  margin-top: 1rem;
-  margin-bottom: 1.2rem;
-  line-height: 1.45;
+/* ===========================================
+   Mobile tuning
+=========================================== */
+@media (max-width: 600px) {
+  p, ul, ol {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
 }
