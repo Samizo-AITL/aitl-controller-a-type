@@ -4,12 +4,12 @@ lang: en
 
 # GitHub Pages URL settings
 url: "https://samizo-aitl.github.io"
-baseurl: "/aitl-controller-a-type"   # Deploy under this project directory
+baseurl: "/aitl-controller-a-type"
 
-# Theme
-theme: minima
+# Theme (Minima disabled so custom layout works)
+# theme: minima
 
-# Markdown / MathJax settings (SemiDevKit-aligned)
+# Markdown / MathJax settings
 markdown: kramdown
 kramdown:
   input: GFM
@@ -18,18 +18,14 @@ kramdown:
   hard_wrap: false
   auto_ids: true
 
-# Rouge is needed for GitHub-like code block styling
 highlighter: rouge
 
-# Plugins recommended for all SemiDevKit-based sites
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-# Pretty URLs (SemiDevKit documentation standard)
 permalink: pretty
 
-# Exclusions
 exclude:
   - Gemfile
   - Gemfile.lock
