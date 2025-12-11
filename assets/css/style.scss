@@ -1,18 +1,15 @@
 ---
 ---
 
-/* ================================
-   SemiDevKit Layout v1 (Unified)
-   GitHub-like × Technical Docs
-   For PDH v2 / AITL / Edusemi
-================================ */
-
 /* Import Minima base */
 @import "minima";
 
-/* ===========================================
-   Mermaid Diagrams (center + responsive)
-=========================================== */
+/* ================================
+   SemiDevKit Layout v1 (Unified)
+   GitHub-like × Technical Docs
+================================ */
+
+/* Mermaid */
 .mermaid {
   display: block;
   margin: 1.5rem auto;
@@ -25,9 +22,9 @@
   height: auto;
 }
 
-/* ===========================================
-   Headings (SemiDevKit Documentation Style)
-=========================================== */
+/* ===============================
+   Headings
+=============================== */
 h1 {
   font-size: 2.2rem;
   margin-top: 2.3rem;
@@ -53,14 +50,13 @@ h3 {
   line-height: 1.4;
 }
 
-/* 最大幅を揃えて読みやすく */
 h1, h2, h3 {
   max-width: 960px;
 }
 
-/* ===========================================
+/* ===============================
    Paragraphs / Lists
-=========================================== */
+=============================== */
 p {
   margin-top: 0.6rem;
   margin-bottom: 1rem;
@@ -69,8 +65,7 @@ p {
   max-width: 960px;
 }
 
-ul,
-ol {
+ul, ol {
   margin-top: 0.3rem;
   margin-bottom: 1rem;
   padding-left: 1.4rem;
@@ -78,9 +73,9 @@ ol {
   font-size: 1.02rem;
 }
 
-/* ===========================================
-   Blockquotes (enhanced GitHub style)
-=========================================== */
+/* ===============================
+   Blockquotes
+=============================== */
 blockquote {
   margin: 1em 0;
   padding: 0.6em 0.9em;
@@ -90,22 +85,18 @@ blockquote {
   max-width: 960px;
 }
 
-/* ===========================================
-   Tables (GitHub-like, tuned for reading)
-=========================================== */
+/* ===============================
+   Tables
+=============================== */
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.2rem 0 1.5rem 0;
-  border-spacing: 0;
-
-  /* スマホで溢れないように */
   display: block;
   overflow-x: auto;
 }
 
-th,
-td {
+th, td {
   border: 1px solid #dfe2e5;
   padding: 0.6em 0.8em;
   vertical-align: top;
@@ -116,21 +107,18 @@ th {
   font-weight: 600;
 }
 
-/* ===========================================
-   Inline code
-=========================================== */
+/* ===============================
+   Code
+=============================== */
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+    "Courier New", monospace;
   font-size: 0.95em;
   background: #f6f8fa;
   border-radius: 3px;
   padding: 0.1em 0.25em;
 }
 
-/* ===========================================
-   Code blocks
-=========================================== */
 pre {
   background: #f6f8fa;
   border-radius: 4px;
@@ -140,8 +128,6 @@ pre {
   margin-top: 1rem;
   margin-bottom: 1.2rem;
   line-height: 1.45;
-
-  /* 長い行の折り返し（技術文書向け） */
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -151,18 +137,18 @@ pre code {
   padding: 0;
 }
 
-/* ===========================================
-   Horizontal Rules
-=========================================== */
+/* ===============================
+   HR
+=============================== */
 hr {
-  margin: 2rem 0 1.8rem 0;
+  margin: 2rem 0 1.8rem;
   border: none;
   border-top: 1px solid #ddd;
 }
 
-/* ===========================================
-   Links (GitHub Docs style)
-=========================================== */
+/* ===============================
+   Links
+=============================== */
 a {
   color: #0366d6;
   text-decoration: none;
@@ -172,63 +158,32 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Dark mode preference */
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   a {
     color: #58a6ff;
   }
 }
 
-/* ===========================================
-   Badges (shields.io)
-=========================================== */
+/* ===============================
+   Badges
+=============================== */
 a img[alt*="badge"],
 a img[alt*="Badge"] {
   vertical-align: middle;
 }
 
-/* ===========================================
-   Section block spacing
-=========================================== */
+/* ===============================
+   Sections
+=============================== */
 section {
   margin-bottom: 2rem;
 }
 
-/* ===========================================
-   Page titles (minima override)
-=========================================== */
+/* ===============================
+   Titles
+=============================== */
 .page-title,
 .post-title {
   margin-bottom: 1rem;
-}
-
-/* ===========================================
-   Lists tighter
-=========================================== */
-ul,
-ol {
-  margin-top: 0.5em;
-  margin-bottom: 0.75em;
-}
-
-/* ===========================================
-   Mobile tuning
-=========================================== */
-@media (max-width: 600px) {
-  p, ul, ol {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  h1 {
-    font-size: 1.9rem;
-  }
-
-  h2 {
-    font-size: 1.45rem;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-  }
 }
