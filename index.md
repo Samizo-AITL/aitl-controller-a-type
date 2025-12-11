@@ -3,6 +3,8 @@ layout: default
 title: Samizo-Lab AITL Controller (A-type)
 ---
 
+***
+
 # Samizo-Lab AITL Controller (A-type)
 
 A lightweight educational implementation of the **AITL three-layer control architecture**:
