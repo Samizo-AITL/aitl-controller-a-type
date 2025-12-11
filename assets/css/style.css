@@ -1,79 +1,103 @@
-@import "minima";
-
 /* ================================
-   Common utilities (SemiDevKit base)
+   SemiDevKit Layout Harmonization
+   (AITL Controller A-type 用)
 ================================ */
 
-/* Center Mermaid diagrams */
-.mermaid {
-  display: block;
-  margin: 1.5rem auto;
-  max-width: 960px;
-  text-align: center;
-}
-
-/* GitHub-like tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1em 0;
-  border-spacing: 0;
-}
-
-th,
-td {
-  border: 1px solid #dfe2e5;
-  padding: 0.6em 0.8em;
-  vertical-align: top;
-}
-
-th {
-  background: #f6f8fa;
+/* -------------------------------
+   Headings (SemiDevKit style)
+-------------------------------- */
+h1 {
+  font-size: 2.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
   font-weight: 600;
+  line-height: 1.25;
 }
 
-/* Inline code */
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 0.95em;
-  background: #f6f8fa;
-  border-radius: 3px;
-  padding: 0.1em 0.25em;
+h2 {
+  font-size: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  border-bottom: none; /* GitHub-style underline を消す */
 }
 
-/* Code blocks */
+h3 {
+  font-size: 1.3rem;
+  margin-top: 1.6rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* -------------------------------
+   Paragraphs / Lists
+-------------------------------- */
+p {
+  margin-top: 0.6rem;
+  margin-bottom: 1rem;
+  line-height: 1.65;
+  font-size: 1.05rem;
+}
+
+ul, ol {
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  padding-left: 1.4rem;
+  line-height: 1.55;
+  font-size: 1.02rem;
+}
+
+/* -------------------------------
+   Horizontal Rules
+-------------------------------- */
+hr {
+  margin: 2rem 0 1.5rem 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+/* -------------------------------
+   Links
+-------------------------------- */
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------
+   Section container (optional)
+-------------------------------- */
+section {
+  margin-bottom: 2rem;
+}
+
+/* -------------------------------
+   Title spacing (SemiDevKit style)
+-------------------------------- */
+.page-title,
+.post-title {
+  margin-bottom: 1rem;
+}
+
+/* -------------------------------
+   Tables (already present but tuned)
+-------------------------------- */
+table {
+  margin-top: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* -------------------------------
+   Code & Pre blocks (semi-modern GitHub style)
+-------------------------------- */
 pre {
-  background: #f6f8fa;
-  border-radius: 4px;
-  padding: 0.9em 1em;
-  overflow-x: auto;
-  border: 1px solid #e1e4e8;
-}
-
-pre code {
-  background: transparent;
-  padding: 0;
-}
-
-/* Blockquotes */
-blockquote {
-  margin: 1em 0;
-  padding: 0.6em 0.9em;
-  border-left: 0.25em solid #dfe2e5;
-  color: #586069;
-  background: #f9fafb;
-}
-
-/* badges */
-a img[alt*="badge"],
-a img[alt*="Badge"] {
-  vertical-align: middle;
-}
-
-/* lists */
-ul,
-ol {
-  margin-top: 0.5em;
-  margin-bottom: 0.75em;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.45;
 }
