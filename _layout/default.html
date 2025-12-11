@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: site.title | escape }}</title>
+
+  <title>{{ page.title | default: site.title | escape }}"></title>
   <meta name="description" content="{{ page.description | default: site.description }}">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{ '/assets/css/style.scss' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/aitl.scss' | relative_url }}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/aitl.css' | relative_url }}">
 
   <!-- MathJax -->
   <script>
@@ -22,7 +22,7 @@
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
   <!-- Mermaid -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script> mermaid.initialize({ startOnLoad: true }); </script>
 </head>
 
@@ -33,13 +33,11 @@
       <h1 class="site-title">
         <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
       </h1>
-      {% if site.description %}
       <p class="site-description">{{ site.description }}</p>
-      {% endif %}
     </div>
   </header>
 
-  <main class="main-container wrapper">
+  <main class="wrapper main-container">
     {{ content }}
   </main>
 
