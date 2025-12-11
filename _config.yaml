@@ -2,14 +2,12 @@ title: AITL Controller A-Type
 description: Three-layer control architecture (PID × FSM × LLM) educational controller
 lang: en
 
-# GitHub Pages URL settings
 url: "https://samizo-aitl.github.io"
 baseurl: "/aitl-controller-a-type"
 
-# Theme (Minima disabled so custom layout works)
+# IMPORTANT → Disable Minima theme because SCSS imports handle it
 # theme: minima
 
-# Markdown / MathJax settings
 markdown: kramdown
 kramdown:
   input: GFM
