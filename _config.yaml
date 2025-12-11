@@ -2,20 +2,34 @@ title: AITL Controller A-Type
 description: Three-layer control architecture (PID × FSM × LLM) educational controller
 lang: en
 
+# GitHub Pages URL settings
 url: "https://samizo-aitl.github.io"
-baseurl: "/aitl-controller-a-type"
+baseurl: "/aitl-controller-a-type"   # Deploy under this project directory
 
+# Theme
 theme: minima
 
+# Markdown / MathJax settings (SemiDevKit-aligned)
 markdown: kramdown
 kramdown:
   input: GFM
   math_engine: mathjax
+  syntax_highlighter: rouge
+  hard_wrap: false
+  auto_ids: true
 
+# Rouge is needed for GitHub-like code block styling
+highlighter: rouge
+
+# Plugins recommended for all SemiDevKit-based sites
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+# Pretty URLs (SemiDevKit documentation standard)
+permalink: pretty
+
+# Exclusions
 exclude:
   - Gemfile
   - Gemfile.lock
