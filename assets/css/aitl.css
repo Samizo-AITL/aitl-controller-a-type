@@ -1,5 +1,5 @@
 /*
-  AITL Controller A-Type layout (based on SemiDevKit)
+  AITL Controller A-Type layout (SemiDevKit-aligned)
 */
 
 .aitl-root {
@@ -26,7 +26,7 @@
 }
 
 .aitl-root .site-title {
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   margin: 0;
 }
 
@@ -51,22 +51,20 @@
   margin-bottom: 0.7rem;
 }
 
-.aitl-root h1,
-.aitl-root h2 {
+/* SemiDevKit-style: underline only for h1 */
+.aitl-root h1 {
+  font-size: 2.1rem;
   border-bottom: 1px solid #eaecef;
   padding-bottom: 0.3rem;
 }
 
-.aitl-root h1 {
-  font-size: 1.8rem;
-}
-
 .aitl-root h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  border-bottom: none;
 }
 
 .aitl-root h3 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
 }
 
 .aitl-root p {
