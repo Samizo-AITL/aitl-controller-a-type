@@ -152,6 +152,75 @@ Output:
 
 ---
 
+# 🔍 Addition.  Ongoing Investigation — AITL under Plant Aging (1000 days)
+
+As an **ongoing investigation**, we are currently evaluating the effectiveness of **AITL control under long-term plant degradation**, focusing on **friction aging equivalent to 1000 days of operation**.
+
+In this study:
+
+- The controller is **initially tuned under nominal (Initial) conditions**
+- The plant then undergoes **significant friction increase due to aging**
+- A fixed-gain PID controller is compared against **AITL with adaptive gain retuning**
+- The primary evaluation metric is **temporal behavior (timing consistency, Δt)** rather than amplitude optimization
+
+---
+
+## ▶ Timing Degradation under Friction Aging
+
+<img
+  src="https://samizo-aitl.github.io/aitl-controller-a-type/data/aging_response.png"
+  alt="aging response"
+  style="display:block; margin:1.5rem auto; width:80%; max-width:100%;"
+/>
+
+
+**Initial (Blue)**  
+Baseline response under nominal conditions, used as the timing reference.
+
+**PID_only 1000d (Orange)**  
+Fixed-gain PID after friction aging.  
+Peak timing gradually shifts over cycles, indicating **accumulated timing degradation (Δt)**.
+
+**AITL 1000d (Green)**  
+AITL applied to the same aged plant.  
+Peak timing remains close to the Initial response across multiple cycles.
+
+---
+
+## Interpretation
+
+Although amplitude and steady-state accuracy are not strictly preserved, the figure clearly indicates that:
+
+> **AITL tends to preserve the temporal structure of the response,  
+> even when the control plant has significantly degraded due to aging.**
+
+This behavior directly reflects the design philosophy of AITL:
+
+- Not to replace PID under nominal conditions
+- Not to pursue aggressively optimized transient responses
+- But to **maintain reliable timing behavior under plant uncertainty and degradation**
+
+Even without detailed control-theoretic analysis,  
+it is intuitive for most engineers that **preserving response timing under aging is valuable**.
+
+---
+
+## Toward Reliability Control
+
+These observations suggest that AITL can be positioned as a form of:
+
+> **Reliability-Oriented Control**
+
+where the primary objective is **maintaining temporal consistency** rather than maximizing nominal performance.
+
+Quantitative evaluation of Δt statistics and longer-duration experiments are ongoing.  
+However, the current results already provide a **clear qualitative indication** that AITL is effective in mitigating the impact of plant aging.
+
+This work aims to explore control-system design beyond classical robustness,  
+toward **Reliability Control** for long-term autonomous and industrial systems.
+
+---
+
 # 📜 7. License
 
 MIT License
