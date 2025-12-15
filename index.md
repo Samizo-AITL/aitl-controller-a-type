@@ -247,6 +247,19 @@ MIT License
 
 ---
 
+# 📄 License
+
+[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/vi-control-asic-sky130//#-license)
+
+| Item | License | Description |
+|------|---------|-------------|
+| **Source Code** | MIT | Free to use, modify, redistribute |
+| **Text Materials** | CC BY 4.0 / CC BY-SA 4.0 | Attribution & share-alike rules |
+| **Figures & Diagrams** | CC BY-NC 4.0 | Non-commercial use |
+| **External References** | Original license applies | Cite properly |
+
+---
+
 # 💬 9.　Feedback
 
 > Suggestions, improvements, and discussions are welcome via GitHub Discussions.
