@@ -158,7 +158,7 @@ Output:
 
 ---
 
-# 🔍 Addition.  Ongoing Investigation — AITL under Plant Aging (1000 days)
+# 🔍 7.  "Addition"  Ongoing Investigation — AITL under Plant Aging (1000 days)
 
 As an **ongoing investigation**, we are currently evaluating the effectiveness of **AITL control under long-term plant degradation**, focusing on **friction aging equivalent to 1000 days of operation**.
 
@@ -227,12 +227,6 @@ toward **Reliability Control** for long-term autonomous and industrial systems.
 
 ---
 
-# 📜 7. License
-
-MIT License
-
----
-
 # 👤 8.　Author
 
 | 📌 Item | Details |
@@ -247,9 +241,9 @@ MIT License
 
 ---
 
-# 📄 License
+# 📄 9. License
 
-[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/vi-control-asic-sky130//#-license)
+[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/aitl-contller-a-type//#-license)
 
 | Item | License | Description |
 |------|---------|-------------|
@@ -260,7 +254,7 @@ MIT License
 
 ---
 
-# 💬 9.　Feedback
+# 💬 10.　Feedback
 
 > Suggestions, improvements, and discussions are welcome via GitHub Discussions.
 
