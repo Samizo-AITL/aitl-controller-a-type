@@ -8,68 +8,131 @@ has_children: false
 
 # Reliability Analysis — AITL under Plant Aging (1000 days)
 
-This document provides a **detailed reliability-oriented analysis**
-of the AITL Controller A-Type under **long-term plant degradation**
-equivalent to **1000 days of friction aging**.
+This section provides a **reliability-oriented analysis** of the  
+**AITL Controller A-Type** under **long-term plant degradation**,  
+modeled as **friction aging equivalent to 1000 days**.
 
-This page expands on the brief introduction shown in the index page and
-focuses on **temporal reliability**, particularly **timing degradation (Δt)**,
-rather than nominal performance optimization.
+Unlike conventional performance-driven evaluations,  
+the focus here is on **temporal reliability**:
 
----
-
-## 🔗 Links
-
-| Language | GitHub Pages 🌐 | GitHub 💻 |
-|----------|----------------|-----------|
-| 🇺🇸 English | [![GitHub Pages EN](https://img.shields.io/badge/GitHub%20Pages-English-brightgreen?logo=github)](https://samizo-aitl.github.io/aitl-controller-a-type/docs/reliability/) | [![GitHub Repo EN](https://img.shields.io/badge/GitHub-English-blue?logo=github)](https://github.com/Samizo-AITL/aitl-controller-a-type/tree/main/docs/reliability) |
+- timing consistency (Δt)
+- motion authority preservation
+- and explicit decisions on *when adaptation should be stopped*
 
 ---
 
-## Scope of This Analysis
+## Purpose and Scope
 
-- Plant degradation modeled as progressive friction increase
-- Comparison between:
-  - fixed-gain PID control
-  - AITL control with adaptive gain retuning
-- Evaluation emphasis:
-  - response timing consistency (Δt)
-  - qualitative and quantitative reliability implications
+The goal of this analysis is **not** to optimize controller performance.
 
-The goal of this document is **not** to derive optimal control laws,
-but to clarify how controller *structure* influences reliability
-under uncertainty and aging.
+Instead, it aims to answer the following design questions:
+
+- How does plant aging affect response timing?
+- What does adaptive control *actually* preserve?
+- When does adaptation begin to **harm reliability**?
+- Can this degradation be **quantified and detected by design**?
+
+The analysis compares:
+
+- fixed-gain PID control  
+- AITL control with FSM-based adaptive gain retuning  
+
+under identical friction aging conditions.
 
 ---
 
-## Relation to Index Page
+## Analysis Structure (Demo Mapping)
 
-This analysis corresponds to the following section in the main page:
+This reliability study is organized as a **four-step design sequence**:
 
-- **Index.md**  
-  *“Addition — Reliability Investigation under Plant Aging”*
+| Demo | File | Role |
+|------|------|------|
+| **06** | `demo_06_friction_aging_waveform.md` | Phenomenon visualization (waveforms) |
+| **07** | `demo_07_metrics_dt_amp.md` | Quantitative metrics (Δt, amplitude ratio) |
+| **08** | `demo_08_fsm_dt_amp_guard.md` | FSM-based reliability decision (guard) |
+| **09** | `demo_09_reliability_cost.md` | Unified reliability cost evaluation |
 
-The index page presents only representative results and conclusions,
-while this document contains:
-- full simulation figures
-- detailed interpretation
-- design-level implications for AITL
+Each demo builds on the previous one and represents  
+a **design-phase progression**, not independent experiments.
+
+---
+
+## Key Design Message
+
+> **Adaptive control is not automatically reliable.**
+
+In this study, AITL successfully compensates for delay,  
+but at the cost of:
+
+- excessive lead (over-compensation)
+- reduced motion authority
+- and degraded overall reliability
+
+Crucially, these effects are:
+
+- **not obvious from waveforms alone**
+- but become explicit through Δt, amplitude, and FSM logic
+
+This distinction marks the boundary between  
+*performance optimization* and *reliability-oriented design*.
 
 ---
 
 ## Navigation
 
-- ▶ **Index page (overview)**  
-  [Reliability Analysis — AITL under Plant Aging](https://samizo-aitl.github.io/aitl-controller-a-type/docs/reliability/)
+### ▶ Detailed Demo Analyses
 
-- ▶ **Detailed demo analysis (friction aging)**  
-  [Demo Analysis — Friction Aging (1000 days)](
-  https://samizo-aitl.github.io/aitl-controller-a-type/docs/reliability/demo_friction_aging_analysis.html
-  )
+- **Demo 06 — Friction Aging Waveforms**  
+  [demo_06_friction_aging_waveform.md](./demo_06_friction_aging_waveform.md)
 
-## Figure Reference
+- **Demo 07 — Reliability Metrics (Δt, Amplitude)**  
+  [demo_07_metrics_dt_amp.md](./demo_07_metrics_dt_amp.md)
 
-- 🖼 **Timing degradation figure (PNG)**  
-  [Open image: pid_vs_aitl_friction_aging.png](
+- **Demo 08 — FSM Guard for Reliability**  
+  [demo_08_fsm_dt_amp_guard.md](./demo_08_fsm_dt_amp_guard.md)
+
+- **Demo 09 — Reliability Cost Trade-off**  
+  [demo_09_reliability_cost.md](./demo_09_reliability_cost.md)
+
+---
+
+## Reference Figure
+
+- 🖼 **Timing degradation under friction aging**  
+  [pid_vs_aitl_friction_aging.png](
   https://samizo-aitl.github.io/aitl-controller-a-type/data/pid_vs_aitl_friction_aging.png
   )
+
+This figure provides a *phenomenological overview* only.  
+All reliability conclusions are derived from quantitative metrics  
+and FSM-based decisions described in the demos above.
+
+---
+
+## Relation to Other Documentation
+
+- This section corresponds to the **Reliability Investigation**  
+  introduced briefly in the main documentation index.
+- The index page presents only representative conclusions.
+- Detailed reasoning, metrics, and design implications are contained here.
+
+---
+
+## Summary
+
+This reliability chapter demonstrates that:
+
+- timing degradation can be quantified (Δt)
+- authority loss can be detected (amplitude ratio)
+- adaptive behavior can and **should be stopped by design**
+
+The result is not a failure of AITL,  
+but a **clear design boundary** between:
+
+> *Adaptive* control  
+> and  
+> *Reliable adaptive* control
+
+---
+
+**End of Reliability Index**
