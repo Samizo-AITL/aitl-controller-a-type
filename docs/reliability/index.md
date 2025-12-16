@@ -140,7 +140,3 @@ but a **clear design boundary** between:
 > *Adaptive* control  
 > and  
 > *Reliable adaptive* control
-
----
-
-**End of Reliability Index**
