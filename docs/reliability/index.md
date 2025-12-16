@@ -140,3 +140,20 @@ but a **clear design boundary** between:
 > *Adaptive* control  
 > and  
 > *Reliable adaptive* control
+
+---
+
+## Design Implication and Next Step
+
+The A-Type controller successfully demonstrated adaptive control capability
+under plant aging conditions.
+
+While the feasibility of reliability-oriented control was investigated,
+the current A-Type architecture was not designed to guarantee reliability,
+as adaptive actions may degrade timing consistency and motion authority.
+
+This result clarifies the design boundary of the A-Type controller and
+motivates the investigation of a **B-Type architecture explicitly designed
+for reliability control**, in which adaptive actions are evaluated and
+accepted only if overall reliability is improved.
+
