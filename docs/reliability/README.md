@@ -49,16 +49,20 @@ while this document contains:
 
 ---
 
-### Navigation
+## Navigation
 
 - ▶ **Index page (overview)**  
-  https://samizo-aitl.github.io/aitl-controller-a-type/docs/reliability/
+  [Reliability Analysis — AITL under Plant Aging](https://samizo-aitl.github.io/aitl-controller-a-type/docs/reliability/)
 
 - ▶ **Detailed demo analysis (friction aging)**  
+  [Demo Analysis — Friction Aging (1000 days)](
   https://samizo-aitl.github.io/aitl-controller-a-type/docs/reliability/demo_friction_aging_analysis.html
+  )
 
-### Figure Reference
+## Figure Reference
 
 - 🖼 **Timing degradation figure (PNG)**  
+  [Open image: pid_vs_aitl_friction_aging.png](
   https://samizo-aitl.github.io/aitl-controller-a-type/data/pid_vs_aitl_friction_aging.png
+  )
 
