@@ -164,6 +164,32 @@ def compute_dt(t, x_ref, x_cmp):
     return t[pc[:n]] - t[pr[:n]]
 
 # =========================================================
+# External API (for demos/07,08,09...)
+# =========================================================
+def simulate_response(controller: str, aging_days: int, variant: str,
+                      T=20.0, dt=0.001, Vmax=12.0, Imax=6.0,
+                      base_gains=(25.0, 50.0, 0.3)):
+    """
+    Public wrapper for other demos.
+
+    controller: "PID" or "AITL"
+    variant   : "initial" or "aging"
+    """
+    if variant == "initial":
+        day = 0
+    elif variant == "aging":
+        day = int(aging_days)
+    else:
+        raise ValueError(f"Unknown variant: {variant}")
+
+    if controller not in ("PID", "AITL"):
+        raise ValueError(f"Unknown controller: {controller}")
+
+    t, x = simulate(day, controller,
+                    base_gains=base_gains, T=T, dt=dt, Vmax=Vmax, Imax=Imax)
+    return t, x
+
+# =========================================================
 # Main
 # =========================================================
 
