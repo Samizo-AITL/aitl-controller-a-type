@@ -189,6 +189,21 @@ is treated as a primary design objective.
 
 ---
 
+## 🟢 B-Type: Reliability-First AITL (Design Extension)
+
+Based on the reliability investigation under plant aging,
+a reliability-first architectural extension of AITL has been formulated.
+
+This extension focuses not on performance optimization,
+but on **deciding when adaptation should be restricted**.
+
+👉 **AITL Controller B-Type (Design Documentation)**  
+- Reliability-first architecture  
+- FSM-based adaptation guard  
+→ [docs/b_type/](docs/b_type/)
+
+---
+
 # 👤 8.　Author
 
 | 📌 Item | Details |
