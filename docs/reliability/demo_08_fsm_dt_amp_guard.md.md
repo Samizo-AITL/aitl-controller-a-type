@@ -1,80 +1,94 @@
-# 【Reliability Analysis】Friction Aging における Δt・振幅・FSM 評価まとめ
+---
+title: "[Reliability Analysis] Δt, Amplitude, and FSM Evaluation under Friction Aging"
+layout: default
+lang: en
+author: AITL Controller A-Type
+tags:
+  - Reliability
+  - Adaptive Control
+  - FSM
+  - AITL
+  - Friction Aging
+  - PID
+description: >
+  Reliability analysis of PID and AITL controllers under friction aging
+  (1000 days), using timing deviation (Δt), amplitude ratio, and FSM-based
+  decision logic.
+---
 
-【AITL Controller A-Type】
+# [Reliability Analysis] Δt, Amplitude, and FSM Evaluation under Friction Aging  
+**AITL Controller A-Type**
 
 ---
 
-## 1. 目的（Why this analysis exists）
+## 1. Purpose (Why this analysis exists)
 
-本解析の目的は、**摩擦老化（1000 days）** 下において、
+The purpose of this analysis is to clarify, under **friction aging equivalent to 1000 days**,  
+what is **preserved** and what is **sacrificed** by:
 
-* 従来 PID 制御
-* AITL（PID × FSM による再チューニング）
+- Conventional PID control  
+- AITL (PID × FSM-based re-tuning)
 
-が **「何を守り、何を犠牲にしたか」** を、
-**定量指標（Δt・振幅）および FSM 判断で明確化すること**である。
+by means of **quantitative metrics (Δt, amplitude ratio) and FSM-based decisions**.
 
-波形の印象評価（demo 06）では見落とされがちな、
-**過補償・制御権限低下・適応の止め時**を数値とロジックで可視化する。
+Phenomena that are often overlooked in waveform-based evaluations (demo 06), such as  
+**over-compensation, loss of motion authority, and when to stop adaptation**,  
+are explicitly visualized using numerical indicators and control logic.
 
 ---
 
-## 2. 評価指標の定義
+## 2. Definition of Evaluation Metrics
 
-### 2.1 Δt（Timing Deviation）
+### 2.1 Δt (Timing Deviation)
 
-* 定義
-  基準応答（Initial）のピーク時刻と、比較対象のピーク時刻との差
+- Definition  
+  Difference between the peak time of the reference response (Initial)  
+  and the peak time of the compared response.
 
-[
+$$
 \Delta t = t_{\text{cmp, peak}} - t_{\text{ref, peak}}
-]
+$$
 
-* 本解析では **ピーク差の平均値（Δt mean）** を使用
+- In this analysis, the **mean value of peak-to-peak differences (Δt mean)** is used.
 
-* 解釈
-
-  * Δt > 0 ：遅れ（lag）
-  * Δt < 0 ：前倒し（lead）
+- Interpretation
+  - Δt > 0 : lag  
+  - Δt < 0 : lead  
 
 ---
 
-### 2.2 振幅比（Amplitude Ratio）
+### 2.2 Amplitude Ratio
 
-* 定義
+- Definition  
 
-[
+$$
 A / A_0 = \frac{\max(x) - \min(x)}{\max(x_{\text{ref}}) - \min(x_{\text{ref}})}
-]
+$$
 
-* 解釈
-
-  * 1.0 ：基準と同等の制御権限
-  * < 0.9 ：制御権限低下
-  * < 0.7 ：実用上危険域
-
----
-
-## 3. 評価条件
-
-* 老化モデル：摩擦項（Fc, Fs）のみ増加
-
-* 老化量：1000 days 相当
-
-* 制御器構成：
-
-  * PID_only
-  * AITL（FSM によるゲイン再チューニング付き）
-
-* 使用デモ：
-
-  * `demos/06_pid_initial_vs_aitl_friction_aging_demo.py`
-  * `demos/07_reliability_metrics_dt_amp.py`
-  * `demos/08_reliability_fsm_dt_amp_guard.py`
+- Interpretation
+  - 1.0 : Equivalent control authority to the reference  
+  - < 0.9 : Degraded control authority  
+  - < 0.7 : Practically unsafe region  
 
 ---
 
-## 4. 数値結果（demo 08 実測）
+## 3. Evaluation Conditions
+
+- Aging model: Increase in friction terms only (Fc, Fs)  
+- Aging level: Equivalent to 1000 days  
+
+- Controller configurations:
+  - PID_only  
+  - AITL (with FSM-based gain re-tuning)
+
+- Used demos:
+  - `demos/06_pid_initial_vs_aitl_friction_aging_demo.py`
+  - `demos/07_reliability_metrics_dt_amp.py`
+  - `demos/08_reliability_fsm_dt_amp_guard.py`
+
+---
+
+## 4. Numerical Results (Measured in demo 08)
 
 ```
 === Reliability FSM (Δt mean + Amp guard) ===
@@ -87,133 +101,130 @@ AITL      |     -1.3807 |   1.3807 |     0.888 | LEAD | BLOCK    | GAIN BOOST BL
 
 ---
 
-## 5. 結果の解釈
+## 5. Interpretation of Results
 
-### 5.1 Δt に関する考察
+### 5.1 Discussion on Δt
 
-* **PID_only**
+- **PID_only**
+  - Phase delay occurs due to friction aging  
+  - Compensation capability is limited, but |Δt| remains within an acceptable range  
 
-  * 摩擦老化により位相遅れが発生
-  * 補償能力は限定的だが、|Δt| は許容範囲内
+- **AITL**
+  - Friction degradation is detected and FSM intervenes  
+  - Gain reinforcement excessively compensates the delay  
+  - As a result, the response peak shifts significantly forward (**LEAD**)  
 
-* **AITL**
-
-  * 摩擦劣化を検出し FSM が介入
-  * ゲイン強化により遅れを過剰補償
-  * 結果として **ピークが大きく前倒し（LEAD）**
-
-👉 **AITL は遅れ補償に成功したが、時間基準維持には失敗**
+👉 **AITL succeeds in delay compensation but fails to preserve the timing reference.**
 
 ---
 
-### 5.2 振幅に関する考察
+### 5.2 Discussion on Amplitude
 
-* PID_only：A/A₀ = 0.902
+- **PID_only**: A/A₀ = 0.902  
+  - Control authority is largely preserved  
 
-  * 制御権限はほぼ維持
+- **AITL**: A/A₀ = 0.888  
+  - Amplitude is reduced as the cost of phase improvement  
+  - Actuator limits and stability margins dominate the behavior  
 
-* AITL：A/A₀ = 0.888
-
-  * 位相改善の代償として振幅が低下
-  * 操作量制約・安定余裕確保が優先された挙動
-
-👉 **時間を守るために motion authority を犠牲にした制御**
+👉 **Motion authority is sacrificed in order to preserve timing behavior.**
 
 ---
 
-## 6. FSM による Reliability 判断（demo 08）
+## 6. Reliability Decision by FSM (demo 08)
 
-### 6.1 FSM 状態定義
+### 6.1 FSM State Definition
 
-| State | 条件           |    |          |
-| ----- | ------------ | -- | -------- |
-| OK    |              | Δt | ≤ Δt_max |
-| LAG   | Δt > +Δt_max |    |          |
-| LEAD  | Δt < -Δt_max |    |          |
+| State | Condition |
+|---|---|
+| OK   | $$|\Delta t| \le \Delta t_{\max}$$ |
+| LAG  | $$\Delta t > +\Delta t_{\max}$$ |
+| LEAD | $$\Delta t < -\Delta t_{\max}$$ |
 
-（Δt_max = 0.8 s）
-
----
-
-### 6.2 ガード条件
-
-* 振幅下限制約：
-
-  * A / A₀ < 0.9 → ゲイン強化禁止
-
-* LEAD 状態：
-
-  * 「進みすぎ」も劣化と定義
-  * ゲイン強化は禁止、ロールバック／緩和を推奨
+($$\Delta t_{\max} = 0.8 \ \mathrm{s}$$)
 
 ---
 
-### 6.3 FSM 判断結果
+### 6.2 Guard Conditions
 
-* PID_only：
+- Amplitude lower bound:
+  - If $$A / A_0 < 0.9$$ → Gain reinforcement is prohibited  
 
-  * 状態 = OK
-  * 再チューニング不要
-
-* AITL：
-
-  * 状態 = LEAD
-  * 振幅下限違反
-  * **適応は信頼性を悪化させるため BLOCK**
-
-👉 **Adaptive 制御を止める判断が可能になった**
+- LEAD state:
+  - “Too fast” is also defined as degradation  
+  - Gain reinforcement is blocked, rollback or relaxation is recommended  
 
 ---
 
-## 7. 設計的に重要な結論
+### 6.3 FSM Decision Results
 
-### 7.1 単一指標最適化の限界
+- **PID_only**
+  - State = OK  
+  - No re-tuning required  
 
-* Δt 最小化のみを目的とすると、
+- **AITL**
+  - State = LEAD  
+  - Amplitude lower bound violated  
+  - **Adaptation is BLOCKED because it degrades reliability**  
 
-  * 過補償（LEAD）
-  * 振幅低下（制御権限喪失）
-    を引き起こす
-
-👉 **Reliability ≠ Δt 最小化**
-
----
-
-### 7.2 AITL Controller A-Type の現状位置づけ
-
-* 遅れ検出能力：あり
-* 再チューニング能力：あり
-* 適応停止判断：demo 08 で初めて実装
-
-👉 **Adaptive → Reliable Adaptive への転換点**
+👉 **The controller can now decide when to stop adaptive behavior.**
 
 ---
 
-## 8. 次ステップ（設計指針）
+## 7. Design-Relevant Conclusions
 
-1. Δt の絶対値化（|Δt|）を信頼性指標とする
-2. Δt と振幅を統合した Reliability cost の導入
+### 7.1 Limitation of Single-Metric Optimization
 
-[
+- Optimization focused solely on minimizing Δt results in:
+  - Excessive lead (over-compensation)  
+  - Amplitude reduction (loss of control authority)  
+
+👉 **Reliability is not equivalent to minimizing Δt.**
+
+---
+
+### 7.2 Current Position of AITL Controller A-Type
+
+- Delay detection capability: available  
+- Gain re-tuning capability: available  
+- Adaptation stop decision: implemented for the first time in demo 08  
+
+👉 **A transition point from “Adaptive” to “Reliable Adaptive”.**
+
+---
+
+## 8. Next Steps (Design Guidelines)
+
+1. Use absolute timing deviation as the reliability metric:
+
+$$
+|\Delta t|
+$$
+
+2. Introduce a unified Reliability cost:
+
+$$
 J_{rel} = w_t |\Delta t| + w_a \max(0, 0.9 - A/A_0)
-]
+$$
 
-3. FSM を「状態判定」から「コスト改善判定」へ拡張
-
----
-
-## 9. まとめ
-
-* demo 06：現象提示（波形）
-* demo 07：定量評価（Δt・振幅）
-* demo 08：判断層（FSM ガード）
-
-本解析により、
-**AITL の過補償問題を数値で特定し、設計として止められることを証明**した。
-
-本結果は失敗報告ではなく、
-**Reliability Control 設計を前進させた成果**である。
+3. Extend FSM logic from state classification  
+   to **cost-based improvement / degradation decisions**.
 
 ---
 
-【END】
+## 9. Summary
+
+- demo 06: Phenomenon visualization (waveforms)  
+- demo 07: Quantitative evaluation (Δt, amplitude)  
+- demo 08: Decision layer (FSM guard)  
+
+This analysis quantitatively identifies **AITL over-compensation issues**  
+and demonstrates that **adaptive control can and should be stopped**  
+when reliability degrades.
+
+This result is **not a failure report**,  
+but an outcome that **advances reliability-oriented control design**.
+
+---
+
+**[END]**
