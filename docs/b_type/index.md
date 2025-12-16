@@ -42,6 +42,10 @@ This leads to a critical design requirement:
 
 > **A supervisory layer must judge adaptation based on reliability metrics, not performance alone.**
 
+🔗 **Reference:**  
+- A-Type Reliability Analysis  
+  → [`../reliability/`](../reliability/)
+
 ---
 
 ## Design Philosophy of B-Type
@@ -60,6 +64,10 @@ Instead of performance metrics, the FSM evaluates explicit reliability indicator
 - Amplitude ratio and saturation level  
 - Adaptation frequency (chattering detection)
 
+🔗 **Details:**  
+- FSM guard metrics and logic  
+  → [`fsm_guard.md`](fsm_guard.md)
+
 ### Principle 3: Guaranteed Fallback to Fixed PID
 Under all circumstances, the controller must be able to fall back to a  
 **conservatively designed fixed PID controller**, ensuring minimum safe operation.
@@ -68,27 +76,14 @@ Under all circumstances, the controller must be able to fall back to a
 
 ## Architecture Overview (PID × FSM × LLM)
 
-### Inner Loop: PID (Conservative and Invariant)
-- Fixed gains designed on the safe side
-- Stability margin and phase margin prioritized
-- Maintains minimum control authority even under severe degradation
+This layered architecture explicitly separates:
+- Control execution  
+- Reliability judgment  
+- Design-time intelligence  
 
-### Middle Layer: FSM (Reliability Guard)
-The FSM manages the control mode using explicit reliability states:
-
-- NORMAL  
-- DEGRADED  
-- ADAPT_ALLOWED  
-- ADAPT_BLOCKED  
-- SAFE_MODE  
-
-A key role of the FSM is to explicitly support  
-**“the decision to stop adaptation.”**
-
-### Outer Layer: LLM (Design-Time Intelligence)
-- Redesigns FSM guard conditions and PID candidates
-- Provides human-readable explanations for adaptation decisions
-- Does not participate in real-time control loops
+🔗 **Architecture details:**  
+- PID × FSM × LLM structure  
+  → [`architecture.md`](architecture.md)
 
 ---
 
@@ -115,8 +110,9 @@ B-Type directly reuses the A-Type reliability demonstrations:
 - Demo08: FSM-based reliability guard  
 - Demo09: Reliability cost trade-off  
 
-B-Type integrates these components into a unified  
-**adaptation permission framework**.
+🔗 **Demo correspondence:**  
+- A-Type → B-Type demo mapping  
+  → [`demo_mapping.md`](demo_mapping.md)
 
 ---
 
@@ -135,7 +131,19 @@ In essence:
 
 ---
 
-The following sections detail:
-- Formal definitions of reliability metrics  
-- FSM guard conditions for B-Type operation  
-- B-Type demonstration scenarios
+## Next Sections (Recommended Reading Order)
+
+1. **Architecture overview**  
+   → [`architecture.md`](architecture.md)
+
+2. **FSM reliability guard (metrics & logic)**  
+   → [`fsm_guard.md`](fsm_guard.md)
+
+3. **Reliability cost formulation**  
+   → [`reliability_cost.md`](reliability_cost.md)
+
+4. **Threshold design guidelines**  
+   → [`threshold_guidelines.md`](threshold_guidelines.md)
+
+5. **Demo mapping and integration**  
+   → [`demo_mapping.md`](demo_mapping.md)
