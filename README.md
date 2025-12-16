@@ -175,6 +175,9 @@ are documented separately.
 👉 **See detailed analysis here:**  
 - [Reliability Analysis — Plant Aging & Timing Degradation](docs/reliability/)
 
+👉 **Design-level conclusions:**  
+- [Summary — Reliability-Oriented Control Insights](docs/reliability/summary.html)
+
 This investigation motivates the positioning of AITL as a form of  
 **Reliability-Oriented Control**, where maintaining timing consistency
 is treated as a primary design objective.
