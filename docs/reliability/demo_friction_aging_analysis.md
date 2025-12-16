@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Reliability Control Demo Analysis — Friction Aging (1000 days)"
+nav_order: 15
+parent: "Reliability Analysis — AITL under Plant Aging"
+has_children: false
+---
+
 # Reliability Control Demo Analysis  
 ## Friction Aging Scenario (1000 days)
 
