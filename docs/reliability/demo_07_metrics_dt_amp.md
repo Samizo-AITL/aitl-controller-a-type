@@ -1,67 +1,85 @@
-# 【Reliability Analysis】Friction Aging における Δt・振幅評価まとめ  
-【AITL Controller A-Type】
+---
+title: "[Reliability Analysis] Δt and Amplitude Evaluation under Friction Aging"
+layout: default
+lang: en
+author: AITL Controller A-Type
+tags:
+  - Reliability
+  - Adaptive Control
+  - AITL
+  - Friction Aging
+  - PID
+description: >
+  Quantitative reliability analysis of PID and AITL controllers under
+  friction aging (1000 days), using timing deviation (Δt) and amplitude
+  ratio metrics.
+---
+
+# [Reliability Analysis] Δt and Amplitude Evaluation under Friction Aging  
+**AITL Controller A-Type**
 
 ---
 
-## 1. 目的（Why this analysis exists）
+## 1. Purpose (Why this analysis exists)
 
-本解析の目的は、**摩擦老化（1000 days）** 下において、
+The purpose of this analysis is to clarify, under **friction aging equivalent to 1000 days**,  
+what is **preserved** and what is **sacrificed** by:
 
-- 従来 PID 制御
-- AITL（PID × FSM による再チューニング）
+- Conventional PID control  
+- AITL (PID × FSM-based re-tuning)
 
-が **「何を守り、何を犠牲にしたか」** を  
-**定量指標（Δt・振幅）で明確化すること**である。
+using **quantitative reliability metrics (Δt and amplitude ratio)**.
 
-波形の印象評価（demo 06）では見落とされがちな  
-**過補償・制御権限低下**を、数値で可視化する。
+Issues that are often overlooked in waveform-based evaluations (demo 06), such as  
+**over-compensation** and **loss of motion authority**, are explicitly visualized using numerical indicators.
 
 ---
 
-## 2. 評価指標の定義
+## 2. Definition of Evaluation Metrics
 
-### 2.1 Δt（Timing Deviation）
+### 2.1 Δt (Timing Deviation)
 
-- 定義  
-  基準応答（Initial）のピーク時刻と、比較対象のピーク時刻との差
+- Definition  
+  Difference between the peak time of the reference response (Initial)  
+  and the peak time of the compared response.
 
-\[
+$$
 \Delta t = t_{\text{cmp, peak}} - t_{\text{ref, peak}}
-\]
+$$
 
-- 解釈  
-  - Δt > 0 ：遅れ（lag）
-  - Δt < 0 ：前倒し（lead）
+- Interpretation  
+  - Δt > 0 : lag  
+  - Δt < 0 : lead  
 
-※ 本解析では **平均値**を使用。
+*In this analysis, the **mean value** of Δt is used.*
 
 ---
 
-### 2.2 振幅比（Amplitude Ratio）
+### 2.2 Amplitude Ratio
 
-- 定義  
+- Definition  
 
-\[
+$$
 A / A_0 = \frac{\max(x) - \min(x)}{\max(x_{\text{ref}}) - \min(x_{\text{ref}})}
-\]
+$$
 
-- 解釈  
-  - 1.0 ：基準と同等の制御権限
-  - < 0.9 ：制御権限低下
-  - < 0.7 ：実用上危険域
-
----
-
-## 3. 評価条件
-
-- 老化モデル：摩擦項（Fc, Fs）のみ増加
-- 老化量：1000 days 相当
-- 評価スクリプト：  
-  `demos/07_reliability_metrics_dt_amp.py`（self-contained）
+- Interpretation  
+  - 1.0 : Equivalent control authority to the reference  
+  - < 0.9 : Degraded control authority  
+  - < 0.7 : Practically unsafe region  
 
 ---
 
-## 4. 数値結果
+## 3. Evaluation Conditions
+
+- Aging model: Increase in friction terms only (Fc, Fs)  
+- Aging level: Equivalent to 1000 days  
+- Evaluation script:  
+  `demos/07_reliability_metrics_dt_amp.py` (self-contained)
+
+---
+
+## 4. Numerical Results
 
 ```
 === Reliability Metrics (1000 days aging) ===
@@ -73,109 +91,109 @@ AITL       | -1.3807     | 0.888
 
 ---
 
-## 5. 結果の解釈（重要）
+## 5. Interpretation of Results (Key Findings)
 
-### 5.1 Δt に関する考察
+### 5.1 Discussion on Δt
 
-- PID_only  
-  - 摩擦老化により遅れが発生
-  - 補償できず、軽度の前倒しに留まる
+- **PID_only**  
+  - Friction aging introduces response delay  
+  - Compensation is limited, resulting in only slight lead behavior  
 
-- AITL  
-  - 遅れを検出し、FSM によりゲインを強化
-  - 結果として **ピークが大きく前倒し**
-  - |Δt| はむしろ増大
+- **AITL**  
+  - Delay is detected and gains are reinforced by FSM logic  
+  - This results in a **significant peak advance (lead)**  
+  - The absolute value |Δt| actually increases  
 
-👉 **AITL は「遅れ補償」に成功したが、「時間基準維持」には失敗**
-
----
-
-### 5.2 振幅に関する考察
-
-- PID_only：0.902  
-  → 制御権限はほぼ維持
-
-- AITL：0.888  
-  → Δt 改善の代償として **振幅を削減**
-
-👉 **時間を守るために motion authority を犠牲にした挙動**
+👉 **AITL succeeds in delay compensation but fails to preserve the timing reference.**
 
 ---
 
-## 6. 設計的に重要な結論
+### 5.2 Discussion on Amplitude
 
-### 6.1 単一指標最適化の限界
+- **PID_only**: 0.902  
+  → Control authority is largely preserved  
 
-- Δt のみを目的とした再チューニングは、
-  - 前倒し過多（過補償）
-  - 振幅低下
-  を引き起こす
+- **AITL**: 0.888  
+  → **Amplitude is reduced** as the cost of Δt improvement  
 
-👉 **Reliability ≠ Δt 最小化**
-
----
-
-### 6.2 今回の AITL の状態定義
-
-現在の AITL は以下に相当する：
-
-- 「遅れを検出したら、とにかく前に出る」
-- 制約なし
-- 方向（lead / lag）の区別なし
-
-これは **設計上の失敗モードを正しく露呈した結果**であり、
-バグではない。
+👉 **Motion authority is sacrificed in order to preserve timing behavior.**
 
 ---
 
-## 7. 改善指針（次ステップ）
+## 6. Design-Relevant Conclusions
 
-### 7.1 Δt の再定義
+### 6.1 Limitation of Single-Metric Optimization
 
-- 符号付き Δt ではなく、
+- Re-tuning focused solely on minimizing Δt leads to:
+  - Excessive lead (over-compensation)  
+  - Reduction in amplitude (loss of authority)  
 
-\[
+👉 **Reliability is not equivalent to minimizing Δt alone.**
+
+---
+
+### 6.2 Interpretation of the Current AITL State
+
+The current AITL behavior can be summarized as:
+
+- “If delay is detected, always move forward”  
+- No constraints applied  
+- No distinction between lead and lag  
+
+This behavior **correctly exposes a design failure mode**  
+and should be regarded as a design outcome, not a bug.
+
+---
+
+## 7. Improvement Guidelines (Next Steps)
+
+### 7.1 Redefinition of Δt
+
+- Use absolute timing deviation instead of signed Δt:
+
+$$
 |\Delta t|
-\]
+$$
 
-を信頼性指標とする。
+as the reliability metric.
 
 ---
 
-### 7.2 FSM 状態の拡張
+### 7.2 FSM State Expansion
 
-| 状態 | 条件 |
-|----|----|
-| LAG | Δt > +Δt\_max |
+| State | Condition |
+|---|---|
+| LAG  | Δt > +Δt\_max |
 | LEAD | Δt < -Δt\_max |
-| OK | |\Δt| ≤ Δt\_max |
+| OK   | $$|\Delta t| \le \Delta t_{\max}$$ |
 
-👉 **「進みすぎ」も劣化と定義**
-
----
-
-### 7.3 振幅の下限制約導入
-
-- A / A₀ < 0.9 → ゲイン強化を禁止
-- 時間補償と制御権限のトレードオフを抑制
+👉 **“Too fast” is also defined as degradation.**
 
 ---
 
-## 8. まとめ（本解析の価値）
+### 7.3 Introduction of Amplitude Lower Bound
 
-- 波形では分からない **AITL の過補償問題**を数値で特定
-- 「遅れ補償」と「信頼性」は別概念であることを証明
-- AITL Reliability Control の **設計課題を明確化**
-
-👉 本解析は **失敗報告ではなく、設計判断を前進させる成果**である。
+- If A / A₀ < 0.9 → Gain reinforcement is prohibited  
+- This suppresses the trade-off between timing compensation and control authority.
 
 ---
 
-## 関連デモ
+## 8. Summary (Value of This Analysis)
 
-- `demos/06_pid_initial_vs_aitl_friction_aging_demo.py`
-- `demos/07_reliability_metrics_dt_amp.py`
+- Quantitatively identifies **AITL over-compensation issues** that are not visible in waveforms  
+- Demonstrates that **delay compensation and reliability are distinct concepts**  
+- Clearly defines the **design challenges of AITL-based reliability control**
+
+👉 This analysis is **not a failure report**,  
+but a result that **advances design decision-making**.
 
 ---
 
-【END】
+## Related Demos
+
+- `demos/06_pid_initial_vs_aitl_friction_aging_demo.py`  
+- `demos/07_reliability_metrics_dt_amp.py`  
+
+---
+
+**[END]**
