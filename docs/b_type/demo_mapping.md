@@ -181,3 +181,149 @@ Possible next extensions:
 - Demo10 detailed walkthrough  
 - Logging and visualization standards for B-Type decisions  
 - Mapping demo outputs to real-system monitoring signals
+
+---
+
+## Evaluation Results Mapping  
+### How B-Type Was Actually Evaluated
+
+This section summarizes **what was evaluated**, **using which demos**,  
+and **what conclusions were drawn** specifically for **B-Type**.
+
+The goal is to clearly separate:
+
+- *What the demos do*  
+- *What conclusions were extracted for B-Type*
+
+---
+
+### Evaluation Viewpoint
+
+B-Type is **not evaluated by performance recovery**, but by the following question:
+
+> **Does the controller preserve a minimum reliability bound under degradation?**
+
+Accordingly, the evaluation focuses on:
+
+- Suppression of excessive adaptation  
+- Bounded FSM activity  
+- Stability of reliability metrics over time  
+
+---
+
+### Mapping of Evaluation Results to Demos
+
+| Demo | Evaluation Focus | B-Type Result |
+|---|---|---|
+| Demo06 | Visual degradation confirmation | Aging clearly observable |
+| Demo07 | Quantitative deviation metrics | Δt, amplitude ratios normalized |
+| Demo08 | Adaptation permission behavior | Over-adaptation successfully blocked |
+| Demo09 | Long-term reliability cost | Lower cumulative risk vs A-Type |
+| Demo10 | End-to-end behavior | Reliability-first orchestration confirmed |
+
+---
+
+### Key Observations
+
+#### 1. Fixed PID vs B-Type
+
+- Fixed PID shows predictable degradation but no self-protection.
+- B-Type intentionally limits compensation, avoiding hidden reliability debt.
+
+**Interpretation:**  
+B-Type prioritizes *not breaking* over *tracking recovery*.
+
+---
+
+#### 2. A-Type vs B-Type
+
+- A-Type recovers phase and amplitude more aggressively.
+- B-Type blocks adaptation when reliability thresholds are exceeded.
+
+**Interpretation:**  
+B-Type does not reject adaptation — it **conditions it**.
+
+---
+
+#### 3. FSM Guard Effectiveness
+
+FSM guard states observed:
+
+- ADAPT_ALLOWED: Early / mild degradation
+- ADAPT_BLOCKED: Excessive gain or delay detected
+- SAFE_MODE: Conservative fallback enforced
+
+No unstable oscillatory switching was observed in B-Type operation.
+
+---
+
+## Re-Evaluation Plan  
+### Planned Extensions for B-Type Validation
+
+To avoid overfitting conclusions to a single scenario, B-Type will be re-evaluated under controlled extensions.
+
+---
+
+### 1. Threshold Sensitivity Analysis
+
+**Purpose**
+- Understand how conservative the reliability guard must be.
+
+**Method**
+- Systematically vary:
+  - Δt threshold
+  - Gain ratio threshold
+  - FSM dwell time
+
+**Expected Outcome**
+- Identify safe operating envelopes
+- Provide threshold design guidelines
+
+---
+
+### 2. Control Target Diversification
+
+Current demos focus on actuator-like dynamics.
+
+Planned additional targets:
+- Thermal system (slow dynamics)
+- Fluid level control
+- Structural damping (second-order)
+
+**Purpose**
+- Confirm B-Type generality beyond motor-like systems.
+
+---
+
+### 3. LLM-Assisted Design-Time Re-Evaluation
+
+LLM will **not** participate in real-time control.
+
+Its role in re-evaluation:
+- Analyze accumulated reliability logs
+- Suggest:
+  - FSM threshold adjustments
+  - PID parameter set revisions
+
+**Constraint**
+- All LLM outputs remain subject to FSM guard approval.
+
+---
+
+## Final Positioning
+
+With these evaluations and re-evaluation plans:
+
+- A-Type remains a proof of adaptability
+- B-Type becomes a framework for **operational reliability assurance**
+
+> **B-Type is not optimized for best-case performance,  
+> but for worst-case survivability.**
+
+This mapping ensures that every demo contributes  
+to a **traceable reliability argument**, not just illustrative behavior.
+
+---
+
+_End of Demo Mapping (Evaluation Extension)_
+
