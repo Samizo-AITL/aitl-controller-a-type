@@ -29,9 +29,9 @@ but to verify the following architectural claim:
 
 All tests use the same analytical plant model:
 
-\[
+$$
 G(s) = \frac{K}{Ts + 1} e^{-Ls}
-\]
+$$
 
 **Aging effects** are modeled as:
 - Increase in effective dead time \( L \)
