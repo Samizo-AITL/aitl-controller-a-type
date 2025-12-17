@@ -14,35 +14,34 @@ parent: "B-Type Architecture"
 ## 1. Purpose of This Evaluation
 
 This document summarizes the **evaluation results of AITL Controller B-Type**,  
-focusing on **reliability preservation under plant aging**, rather than pure performance improvement.
+with a focus on **reliability preservation under plant aging**, rather than short-term performance maximization.
 
-The objective is **not** to prove that B-Type is “better” than A-Type or PID in all cases,  
-but to verify the following design claim:
+The objective is **not** to claim that B-Type outperforms A-Type or PID universally,  
+but to verify the following architectural claim:
 
-> **B-Type guarantees a lower bound of reliability while allowing limited adaptation.**
+> **B-Type guarantees a lower bound of reliability while allowing limited, supervised adaptation.**
 
 ---
 
 ## 2. Evaluation Scope and Conditions
 
-### 2.1 Control Target (Common Across All Tests)
+### 2.1 Control Target
 
-To enable analytical interpretation, the plant model is fixed as:
+All tests use the same analytical plant model:
 
-- **First-Order Plus Dead Time (FOPDT)**  
-  \[
-  G(s) = \frac{K}{Ts + 1} e^{-Ls}
-  \]
+\[
+G(s) = \frac{K}{Ts + 1} e^{-Ls}
+\]
 
-Aging effects are introduced as:
-- Increase in effective dead time \(L\)
-- Reduction of effective gain \(K\)
+**Aging effects** are modeled as:
+- Increase in effective dead time \( L \)
+- Decrease in effective gain \( K \)
 
 ---
 
-### 2.2 Controllers Compared
+### 2.2 Incremental Controller Comparison
 
-All evaluations are performed incrementally, adding one architectural element at a time:
+Controllers are evaluated **incrementally**, reflecting architectural causality:
 
 | ID | Controller Configuration |
 |----|--------------------------|
@@ -52,119 +51,105 @@ All evaluations are performed incrementally, adding one architectural element at
 | C3 | PID + FSM + Reliability Guard (B-Type) |
 | C4 | PID + FSM + Reliability Guard + LLM (conceptual) |
 
-This ordering is intentional and **must not be skipped**, as it reflects architectural causality.
+---
+
+## 3. Overall Comparison (All Configurations)
+
+<img src="http://raw.githubusercontent.com/Samizo-AITL/aitl-controller-a-type/main/data/00_all_comparison.png" width="80%">
+
+This figure shows the **incremental evolution of control behavior** as architectural layers are added.
+
+Key observation:
+- Performance improves initially with adaptation
+- Reliability-oriented constraints intentionally limit over-compensation in B-Type
 
 ---
 
-## 3. Key Evaluation Metrics
+## 4. Fixed PID vs Initial (Aging Effect)
 
-### 3.1 Performance Metrics (Secondary)
+<img src="http://raw.githubusercontent.com/Samizo-AITL/aitl-controller-a-type/main/data/01_initial_vs_pid.png" width="80%">
 
-- Tracking error
-- Phase delay (Δt)
-- Steady-state amplitude ratio
+**Observations**
+- Clear phase delay increase
+- Amplitude attenuation
+- Stability preserved
 
-> These are monitored but **not used as decision criteria** in B-Type.
-
----
-
-### 3.2 Reliability Metrics (Primary)
-
-B-Type decisions are driven by explicit reliability indicators:
-
-| Metric | Meaning |
-|------|--------|
-| Δt / Δt₀ | Response delay degradation ratio |
-| K / K₀ | Gain compensation ratio |
-| A / A₀ | Output amplitude ratio |
-| FSM switch rate | Chattering / adaptation stress |
-| Saturation ratio | Actuator authority loss |
-
-These metrics are evaluated **over time**, not instantaneously.
+**Interpretation**  
+This establishes the **baseline degradation caused by aging**, without adaptive intervention.
 
 ---
 
-## 4. Evaluation Results Summary
+## 5. PID vs PID + FSM (A-Type)
 
-### 4.1 Fixed PID vs Initial
+<img src="http://raw.githubusercontent.com/Samizo-AITL/aitl-controller-a-type/main/data/02_pid_vs_pid_fsm.png" width="80%">
 
-- Aging introduces:
-  - Clear phase delay
-  - Reduced amplitude
-- System remains stable but deviates from reference.
-
-✅ Baseline reliability preserved  
-❌ Performance degradation unavoidable
-
----
-
-### 4.2 PID + FSM (A-Type)
-
-- FSM successfully reduces apparent phase delay.
-- Adaptive gain switching partially restores amplitude.
+**Observations**
+- Phase delay is partially recovered
+- Output amplitude increases
+- FSM actively switches PID gain sets
 
 ⚠️ However:
-- Over-compensation observed in several scenarios
+- Tendency toward over-compensation
 - Increased FSM switching frequency
-- Long-term reliability indicators degrade
+- Long-term reliability indicators worsen
 
-**Conclusion:**  
-A-Type demonstrates *adaptability*, but not *reliability assurance*.
+**Conclusion**  
+A-Type demonstrates *adaptability*, but lacks explicit *reliability guarantees*.
 
 ---
 
-### 4.3 PID + FSM + Reliability Guard (B-Type)
+## 6. A-Type vs B-Type (Reliability Guard Effect)
 
-- Reliability Guard restricts FSM-based adaptation when:
-  - Δt ratio exceeds threshold
-  - Gain boost accumulates
-  - Switching becomes excessive
+<img src="http://raw.githubusercontent.com/Samizo-AITL/aitl-controller-a-type/main/data/03_pid_fsm_vs_btype.png" width="80%">
 
-Observed behavior:
-- Phase recovery is intentionally limited
+**B-Type behavior**
+- FSM adaptation is constrained by reliability thresholds
+- Gain amplification is limited
+- Switching activity is bounded
+
+**Result**
+- Phase recovery is intentionally incomplete
 - Amplitude recovery is partial but stable
-- FSM activity is bounded
 
-✅ Reliability lower bound guaranteed  
-❌ Full performance recovery is intentionally sacrificed
+✅ Reliability lower bound enforced  
+❌ Full performance recovery intentionally sacrificed
 
-This behavior is **by design**, not a limitation.
-
----
-
-### 4.4 Conceptual Addition of LLM Layer
-
-The LLM layer is **not** used for real-time control.
-
-Its conceptual role is:
-- Offline or supervisory adjustment of:
-  - FSM thresholds
-  - PID parameter sets
-- Based on accumulated reliability metrics
-
-Result:
-- Slight phase alignment improvement toward Initial
-- No violation of reliability constraints
-
-⚠️ LLM does **not override** B-Type guards  
-It operates **under FSM-defined safety envelopes**
+This is **by design**, not a limitation.
 
 ---
 
-## 5. Interpretation of Results
+## 7. B-Type vs B-Type + LLM (Conceptual Layer)
 
-### 5.1 Why B-Type Looks “Worse” Than A-Type in Waveforms
+<img src="http://raw.githubusercontent.com/Samizo-AITL/aitl-controller-a-type/main/data/04_btype_vs_btype_llm.png" width="80%">
+
+**Role of LLM**
+- Not used for real-time control
+- Operates as an offline / supervisory design aid
+- Adjusts FSM thresholds and PID sets within safety envelopes
+
+**Key constraint**
+> LLM does **not override** Reliability Guard decisions.
+
+Observed effect:
+- Slight phase alignment improvement
+- No reliability constraint violations
+
+---
+
+## 8. Interpretation of Results
+
+### 8.1 Why B-Type Looks “Worse” Than A-Type
 
 Because **B-Type refuses to over-adapt**.
 
-What looks like “worse tracking” is in fact:
-- Prevention of actuator abuse
-- Avoidance of hidden reliability debt
+What appears as reduced tracking is actually:
+- Actuator stress prevention
+- Suppression of hidden reliability debt
 - Enforcement of long-term operability
 
 ---
 
-### 5.2 Design Trade-off (Explicit)
+### 8.2 Explicit Design Trade-off
 
 | Aspect | A-Type | B-Type |
 |------|--------|--------|
@@ -175,41 +160,21 @@ What looks like “worse tracking” is in fact:
 
 ---
 
-## 6. Re-Evaluation Plan (Future Work)
+## 9. Final Conclusion
 
-B-Type evaluation will be extended in the following directions:
+This evaluation confirms that **AITL Controller B-Type**:
 
-1. **Threshold sensitivity analysis**
-   - How conservative can guards be relaxed safely?
-
-2. **Plant diversity**
-   - Thermal systems
-   - Fluid level control
-   - Structural damping systems
-
-3. **LLM-assisted design-time optimization**
-   - Threshold tuning
-   - FSM structure simplification
-
-These will be documented as **separate evaluation reports**, not mixed with core architecture claims.
-
----
-
-## 7. Final Conclusion
-
-AITL Controller B-Type successfully demonstrates:
-
-- Controlled adaptation
-- Explicit reliability enforcement
-- Safe degradation handling under aging
+- Enforces explicit reliability constraints
+- Allows only supervised, bounded adaptation
+- Handles aging-induced degradation safely
 
 In summary:
 
 > **A-Type proves that adaptation is possible.**  
 > **B-Type proves that adaptation must be constrained.**
 
-This evaluation confirms that B-Type fulfills its intended role  
-as a **deployment-oriented reliability-first adaptive control architecture**.
+B-Type fulfills its intended role as a  
+**deployment-oriented, reliability-first adaptive control architecture**.
 
 ---
 
