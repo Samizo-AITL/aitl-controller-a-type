@@ -1,13 +1,13 @@
 ---
 title: "AITL Controller B-Type"
-description: "Reliability-first adaptive control architecture derived from A-Type reliability analysis"
+description: "Reliability-first supervisory control architecture with deviation-based permissioned adaptation"
 layout: default
 nav_order: 1
 parent: "B-Type Architecture"
 ---
 
 # AITL Controller B-Type  
-## Reliability-First Adaptive Control Architecture
+## Reliability-First Supervisory Control Architecture
 
 ---
 
@@ -21,34 +21,36 @@ parent: "B-Type Architecture"
 
 ## Overview — Why B-Type Exists
 
-AITL Controller **B-Type** is a reliability-oriented evolution of A-Type.  
-It directly implements the key conclusion obtained from the A-Type reliability analysis:
+AITL Controller **B-Type** is not an extension of adaptive capability,  
+but an **architectural correction derived from A-Type reliability analysis**.
 
-> **Adaptive control does not necessarily guarantee reliability.**
+The core lesson from A-Type is clear:
 
-While A-Type demonstrates *the capability to adapt*,  
-B-Type is responsible for *deciding whether adaptation should be allowed*.
+> **Adaptation capability does not guarantee long-term reliability.**
+
+While A-Type demonstrates *how adaptation can be performed*,  
+B-Type defines **when adaptation is allowed — and when it must be suppressed**.
 
 In short:
 
-> **B-Type = Adaptive Control under Explicit Reliability Constraints**
+> **B-Type = Adaptation under explicit reliability permission**
 
 ---
 
-## Design Lessons from A-Type Reliability Analysis
+## Design Lessons Inherited from A-Type
 
-The A-Type reliability study under plant aging conditions revealed the following:
+Reliability analysis under plant aging revealed the following:
 
-- Adaptive control can temporarily compensate response delay (Δt) caused by plant degradation.
-- However, it may also introduce:
-  - Over-compensation  
-  - Loss of motion authority  
-  - Long-term degradation of system reliability
-- These risks cannot be identified from waveform inspection alone.
+- Adaptive control can temporarily compensate response delay (Δt)
+- However, it may also cause:
+  - Excessive gain escalation
+  - Actuator saturation and authority loss
+  - Long-term reliability degradation
+- These risks are **not detectable from waveform performance alone**
 
-This leads to a critical design requirement:
+This leads to a decisive architectural requirement:
 
-> **A supervisory layer must judge adaptation based on reliability metrics, not performance alone.**
+> **Adaptation must be supervised by reliability metrics, not performance metrics.**
 
 🔗 **Reference:**  
 - A-Type Reliability Analysis  
@@ -56,38 +58,82 @@ This leads to a critical design requirement:
 
 ---
 
-## Design Philosophy of B-Type
+## Core Design Philosophy of B-Type
 
-B-Type is built upon three fundamental principles.
+B-Type is built on **three non-negotiable principles**.
 
-### Principle 1: Adaptation Is Permission-Based, Not a Right
-Adaptive control is not always beneficial.  
-Adaptation is enabled **only when reliability metrics remain within predefined limits**.
+---
 
-### Principle 2: Reliability Decisions Are Made by FSM
-Instead of performance metrics, the FSM evaluates explicit reliability indicators such as:
+### Principle 1: Adaptation Is Permission-Based
 
-- Response delay ratio: Δt / Δt₀  
-- Gain compensation ratio: K / K₀  
-- Amplitude ratio and saturation level  
+Adaptation is **never a default behavior**.
+
+- It is *considered*
+- It is *evaluated*
+- It is *explicitly permitted or rejected*
+
+based on predefined reliability conditions.
+
+> Adaptation is a privilege, not a right.
+
+---
+
+### Principle 2: FSM Judges Reliability — Not Performance
+
+A **Finite State Machine (FSM)** acts as a supervisory layer that evaluates  
+*reliability deviation* rather than performance improvement.
+
+Typical metrics include:
+
+- Response timing deviation ratio (Δt / Δt₀)
+- Amplitude or authority deviation
+- Gain deviation ratio (K / K₀)
+- Saturation ratio (V–I limits)
 - Adaptation frequency (chattering detection)
+
+FSM responsibilities are intentionally limited:
+
+- FSM **does not compute gains**
+- FSM **does not optimize**
+- FSM **only decides whether pre-approved actions are allowed**
 
 🔗 **Details:**  
 - FSM guard metrics and logic  
   → [`fsm_guard.md`](fsm_guard.md)
 
+---
+
 ### Principle 3: Guaranteed Fallback to Fixed PID
-Under all circumstances, the controller must be able to fall back to a  
-**conservatively designed fixed PID controller**, ensuring minimum safe operation.
+
+Under **all conditions**, the controller must be able to revert to a  
+**conservatively designed fixed PID controller**.
+
+This guarantees:
+
+- Minimum safe operation
+- Deterministic behavior
+- Explainability and auditability
+
+> The fixed PID is not a failure mode.  
+> It is the **reliability floor** of the system.
 
 ---
 
-## Architecture Overview (PID × FSM × LLM)
+## Architecture Positioning (PID × FSM × LLM)
 
-This layered architecture explicitly separates:
-- Control execution  
-- Reliability judgment  
-- Design-time intelligence  
+B-Type explicitly separates responsibilities across time scales:
+
+| Layer | Role | Time Scale |
+|---|---|---|
+| PID | Real-time control execution | ms |
+| FSM | Reliability supervision & permission | s–min |
+| Human / LLM | Gain design & validation | days–years |
+
+Important clarification:
+
+- **LLM is never a runtime decision-maker**
+- LLM may assist *offline gain design*
+- Final approval always belongs to the engineer
 
 🔗 **Architecture details:**  
 - PID × FSM × LLM structure  
@@ -95,28 +141,30 @@ This layered architecture explicitly separates:
 
 ---
 
-## Positioning of A-Type and B-Type
+## Positioning of A-Type vs B-Type
 
 | Aspect | A-Type | B-Type |
 |---|---|---|
-| Primary goal | Demonstrate adaptability | Guarantee reliability lower bound |
-| Adaptive control | Always enabled | Conditionally permitted |
-| Decision criterion | Performance improvement | Reliability metrics |
-| Intended use | Proof of concept | Deployment and long-term operation |
+| Purpose | Demonstrate adaptability | Guarantee reliability bounds |
+| Adaptation | Always enabled | Conditionally permitted |
+| Decision basis | Performance improvement | Reliability deviation |
+| Gain handling | Dynamic | Pre-approved assets only |
+| Intended use | Exploration / PoC | Deployment / long-term operation |
 
 > **B-Type does not replace A-Type.**  
-> It builds upon the results and insights provided by A-Type.
+> It formalizes the operational discipline required to deploy A-Type safely.
 
 ---
 
 ## Mapping to Existing Demonstrations
 
-B-Type directly reuses the A-Type reliability demonstrations:
+B-Type intentionally reuses A-Type demonstrations,  
+but **reinterprets their meaning through a reliability lens**.
 
-- Demo06: Visualization of degradation effects  
-- Demo07: Quantitative metrics (Δt, amplitude ratio)  
-- Demo08: FSM-based reliability guard  
-- Demo09: Reliability cost trade-off  
+- Demo06: Degradation visualization → *baseline deviation reference*
+- Demo07: Δt / amplitude metrics → *FSM inputs*
+- Demo08: FSM reliability guard → *core B-Type mechanism*
+- Demo09: Reliability cost trade-off → *design-time decision support*
 
 🔗 **Demo correspondence:**  
 - A-Type → B-Type demo mapping  
@@ -124,22 +172,22 @@ B-Type directly reuses the A-Type reliability demonstrations:
 
 ---
 
-## Summary
+## Summary — What B-Type Actually Is
 
 AITL Controller B-Type is:
 
-- A controller that **constrains adaptation**
-- A design that prioritizes **not breaking over optimizing**
-- A reliability-oriented architecture for long-term operation under degradation
+- A controller that **limits adaptation**
+- A system that prioritizes **not breaking over optimizing**
+- An architecture that explicitly encodes **engineering judgment**
 
 In essence:
 
-> **A-Type = A controller that can adapt**  
-> **B-Type = A controller that knows when it should not adapt**
+> **A-Type shows that a system *can* adapt.**  
+> **B-Type ensures the system knows when it *should not*.**
 
 ---
 
-## Next Sections (Recommended Reading Order)
+## Recommended Reading Order
 
 1. **Architecture overview**  
    → [`architecture.md`](architecture.md)
@@ -150,8 +198,12 @@ In essence:
 3. **Reliability cost formulation**  
    → [`reliability_cost.md`](reliability_cost.md)
 
-4. **Threshold design guidelines**  
+4. **Deviation threshold design policy**  
    → [`threshold_guidelines.md`](threshold_guidelines.md)
 
 5. **Demo mapping and integration**  
    → [`demo_mapping.md`](demo_mapping.md)
+
+---
+
+*End of B-Type Overview*
