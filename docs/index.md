@@ -116,6 +116,83 @@ in favor of **design intent and architectural clarity**.
 
 ---
 
+## True Robust Control: Operational Robustness Layer
+
+**True Robust Control** extends the AITL framework by addressing a limitation
+shared by both A-Type and B-Type:
+
+> **How should robustness itself be *operated* before theoretical guarantees fail?**
+
+Rather than treating robustness as a fixed design outcome,
+True Robust Control defines robustness as an **operational capability**.
+
+---
+
+### What It Adds to AITL
+
+True Robust Control introduces the following concepts:
+
+- **Uncertainty Δ as a monitored state**, not a static bound
+- **Frequency-aware interpretation of degradation**
+  - low-frequency (performance degradation)
+  - high-frequency (stability margin loss)
+  - input-side (actuator stress)
+- **Proactive intervention at ∥Δ∥∞ ≈ 0.8**, before guarantee breakdown
+- **Selective redesign of H∞ weight functions**
+  - \( W_s \): performance demand
+  - \( W_t \): robustness margin
+  - \( W_u \): actuator protection
+- **Clear role separation**
+  - FSM: *when to intervene*
+  - LLM: *what design lever to move*
+  - Controller: *execute safely*
+
+---
+
+### Relationship to A-Type and B-Type
+
+| Layer | Role |
+|---|---|
+| A-Type | Demonstrates *adaptive capability* |
+| B-Type | Enforces *reliability permission and responsibility* |
+| **True Robust Control** | **Operates robustness as a dynamic design process** |
+
+> **A-Type asks:** *Can the system adapt?*  
+> **B-Type asks:** *Should the system adapt?*  
+> **True Robust Control asks:** *How should robustness itself be operated?*
+
+These are not competing approaches,  
+but **orthogonal layers of the same architecture**.
+
+---
+
+### Position in the Documentation
+
+📘 **True Robust Control (Start Here for Robustness Operation)**  
+→ [`true_robust_control/`](true_robust_control/)
+
+This section is recommended when:
+- H∞ control feels too conservative or too static
+- Plant degradation evolves over time
+- Robustness must be explained, not just assumed
+- Design decisions must be auditable and intentional
+
+---
+
+### Architectural Perspective (Extended)
+
+| Aspect | Focus |
+|---|---|
+| A-Type | Adaptation capability |
+| B-Type | Reliability and safety gating |
+| **True Robust Control** | **Operational robustness and design intervention** |
+
+> **Capability without responsibility is dangerous.**  
+> **Responsibility without operational robustness is blind.**  
+> **True Robust Control connects the two.**
+
+---
+
 ## Summary
 
 The AITL Controller framework evolves as follows:
