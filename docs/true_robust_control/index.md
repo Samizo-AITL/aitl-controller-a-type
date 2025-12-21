@@ -8,6 +8,14 @@ layout: default
 
 ---
 
+## 🔗 Links
+
+| Language | GitHub Pages 🌐 | GitHub 💻 |
+|----------|----------------|-----------|
+| 🇺🇸 English | [![GitHub Pages EN](https://img.shields.io/badge/GitHub%20Pages-English-brightgreen?logo=github)](https://samizo-aitl.github.io/aitl-controller-a-type/docs/true_robust_control/) | [![GitHub Repo EN](https://img.shields.io/badge/GitHub-English-blue?logo=github)](https://github.com/Samizo-AITL/aitl-controller-a-type/tree/main/docs/true_robust_control) |
+
+---
+
 ## Overview
 
 **True Robust Control** is a design philosophy that redefines classical H∞ robust control  
