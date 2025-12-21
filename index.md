@@ -204,6 +204,72 @@ but on **deciding when adaptation should be restricted**.
 
 ---
 
+## 🛡️ True Robust Control — Operating Robustness as a Design Process
+
+While A-Type demonstrates *adaptive capability*  
+and B-Type enforces *reliability and responsibility*,
+
+**True Robust Control** addresses a deeper question:
+
+> **How should robustness itself be *operated*  
+> before theoretical guarantees collapse?**
+
+This theme extends the AITL framework by treating robustness  
+not as a fixed design result, but as an **operational capability**.
+
+---
+
+### What Is Added Beyond A-Type and B-Type
+
+True Robust Control introduces the following design concepts:
+
+- **Uncertainty Δ as an observable state**, not a static worst-case bound
+- **Frequency-aware interpretation of degradation**
+  - low-frequency: performance degradation
+  - high-frequency: stability margin loss
+  - input-side: actuator stress and saturation
+- **Proactive intervention at ∥Δ∥∞ ≈ 0.8**,  
+  before H∞ theoretical guarantees break
+- **Selective redesign of H∞ weight functions**
+  - \( W_s \): performance demand
+  - \( W_t \): robustness margin
+  - \( W_u \): actuator protection
+- **Strict role separation**
+  - FSM decides *when* to intervene
+  - LLM decides *which design lever to move*
+  - Controllers execute safely without reasoning
+
+---
+
+### Position Within the AITL Framework
+
+| Layer | Primary Role |
+|---|---|
+| A-Type | Demonstrates adaptive capability |
+| B-Type | Restricts adaptation for reliability |
+| **True Robust Control** | **Operates robustness as a dynamic design process** |
+
+> **A-Type asks:** Can the system adapt?  
+> **B-Type asks:** Should the system adapt?  
+> **True Robust Control asks:** How should robustness be operated?
+
+These are **complementary layers**, not competing approaches.
+
+---
+
+### Documentation
+
+📘 **True Robust Control — Design Documentation**  
+→ [docs/true_robust_control/](docs/true_robust_control/)
+
+This section is recommended when:
+- H∞ control feels too static or overly conservative
+- Plant degradation evolves over time
+- Robustness decisions must be explainable and auditable
+- Design intervention must occur *before* instability
+
+---
+
 # 👤 8.　Author
 
 | 📌 Item | Details |
