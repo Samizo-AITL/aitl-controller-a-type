@@ -44,6 +44,12 @@ demos/05_aitl_full_demo.py
   style="display:block; margin:1.5rem auto; width:80%; max-width:100%;"
 />
 
+---
+
+<video src="assets/anim/aitl_full_demo.mp4"
+       autoplay loop muted playsinline
+       style="width:100%; max-width:900px;">
+</video>
 
 ---
 
