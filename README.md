@@ -41,8 +41,8 @@ demos/05_aitl_full_demo.py
 
 ---
 
-<video src="assets/anim/aitl_full_demo.mp4"
-       autoplay loop muted playsinline
+<video controls
+       src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}"
        style="width:100%; max-width:900px;">
 </video>
 
