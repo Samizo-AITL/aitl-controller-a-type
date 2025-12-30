@@ -42,12 +42,13 @@ demos/05_aitl_full_demo.py
 ---
 
 <video
-  src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}"
   controls
-  muted
+  preload="metadata"
   playsinline
+  webkit-playsinline
   style="display:block; width:100%; max-width:900px; margin:1.5rem auto; background:#000;"
 >
+  <source src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
