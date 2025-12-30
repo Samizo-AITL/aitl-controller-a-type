@@ -41,9 +41,14 @@ demos/05_aitl_full_demo.py
 
 ---
 
-<video controls autoplay loop muted playsinline
-  src="https://samizo-aitl.github.io/aitl-controller-a-type/assets/anim/aitl_full_demo.mp4"
-  style="width:100%; max-width:900px; display:block; margin:1.5rem auto;">
+<video
+  src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}"
+  controls
+  muted
+  playsinline
+  style="display:block; width:100%; max-width:900px; margin:1.5rem auto; background:#000;"
+>
+  Your browser does not support the video tag.
 </video>
 
 ---
