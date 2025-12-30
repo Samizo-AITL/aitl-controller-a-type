@@ -44,6 +44,11 @@ demos/05_aitl_full_demo.py
   style="display:block; margin:1.5rem auto; width:80%; max-width:100%;"
 />
 
+---
+
+<video controls style="width:100%; max-width:900px;">
+  <source src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}" type="video/mp4">
+</video>
 
 ---
 
