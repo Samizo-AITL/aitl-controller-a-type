@@ -41,9 +41,9 @@ demos/05_aitl_full_demo.py
 
 ---
 
-<video controls
-       src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}"
-       style="width:100%; max-width:900px;">
+<video controls style="width:100%; max-width:900px;">
+  <source src="https://samizo-aitl.github.io/aitl-controller-a-type/assets/anim/aitl_full_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
 </video>
 
 ---
