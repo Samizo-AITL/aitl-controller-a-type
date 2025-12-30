@@ -46,21 +46,6 @@ demos/05_aitl_full_demo.py
 
 ---
 
-<video
-  src="{{ '/assets/anim/aitl_full_demo.mp4' | relative_url }}"
-  controls
-  muted
-  playsinline
-  preload="auto"
-  autoplay
-  loop
-  style="display:block; width:100%; max-width:900px; margin:1.5rem auto; background:#000;"
->
-  Your browser does not support the video tag.
-</video>
-
----
-
 # 📄 Technical Document (PDF)
 
 👉 **[paper.pdf](paper.pdf)**
