@@ -130,11 +130,19 @@ Provides explainable control-mode transitions.
 
 | Script | Description |
 |--------|-------------|
-| `01_pid_step_response.py` | Basic PID response |
-| `02_fsm_mode_switch.py` | FSM switching |
-| `03_hybrid_pid_fsm_demo.py` | PID × FSM hybrid |
-| `04_hybrid_fsm_llm_demo.py` | Hybrid + LLM |
-| `05_aitl_full_demo.py` | Full AITL joint system |
+| `01_pid_step_response.py` | Basic PID response (baseline behavior) |
+| `02_fsm_mode_switch.py` | FSM threshold-based mode switching |
+| `03_hybrid_pid_fsm_demo.py` | PID × FSM hybrid control |
+| `04_hybrid_fsm_llm_demo.py` | Hybrid control with LLM-based gain adjustment |
+| `05_aitl_full_demo.py` | Full AITL joint system (ideal condition demo) |
+|  |  |
+| `12_vi_current_control_sales_demo.py` | V–I current control comparison under aging & disturbance (Fixed PID / PID×FSM / AITL) |
+| `13_aging_sweep_delta_t.py` | Reliability metrics sweep vs aging (Δt, max|e|) |
+| `15_fsm_explainability_demo.py` | FSM explainability demo (why and when modes switched) |
+
+**Note:**  
+Demos `12`, `13`, and `15` provide **quantitative and explainable evidence**
+supporting reliability-related design conclusions.
 
 ---
 
