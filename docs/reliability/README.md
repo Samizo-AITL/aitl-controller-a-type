@@ -37,23 +37,39 @@ The analysis compares:
 - fixed-gain PID control  
 - AITL control with FSM-based adaptive gain retuning  
 
-under identical friction aging conditions.
+under identical plant aging and disturbance conditions.
 
 ---
 
 ## Analysis Structure (Demo Mapping)
 
-This reliability study is organized as a **four-step design sequence**:
+This reliability study is organized as a **design-to-evidence sequence**,
+linking **architectural intent** to **reproducible results**.
 
-| Demo | File | Role |
-|------|------|------|
-| **06** | `demo_06_friction_aging_waveform.md` | Phenomenon visualization (waveforms) |
-| **07** | `demo_07_metrics_dt_amp.md` | Quantitative metrics (Δt, amplitude ratio) |
-| **08** | `demo_08_fsm_dt_amp_guard.md` | FSM-based reliability decision (guard) |
-| **09** | `demo_09_reliability_cost.md` | Unified reliability cost evaluation |
+Rather than independent experiments, each demo represents a
+**progressive refinement of reliability reasoning**.
 
-Each demo builds on the previous one and represents  
-a **design-phase progression**, not independent experiments.
+| Demo | Artifact | Role |
+|------|----------|------|
+| **12** | `12_vi_current_control_sales_demo.py` | Phenomenon visualization (waveforms under aging & disturbance) |
+| **13** | `13_aging_sweep_delta_t.py` | Quantitative reliability metrics (Δt, max|e| vs aging) |
+| **15** | `15_fsm_explainability_demo.py` | Explainable supervisory decisions (FSM transition rationale) |
+| **—** | *(design synthesis)* | Reliability boundary identification (motivation for B-Type) |
+
+### Interpretation
+
+- **Demo 12** answers *what happens* under aging and disturbance  
+- **Demo 13** quantifies *how reliability degrades* using explicit metrics  
+- **Demo 15** explains *why supervisory decisions occur*, enabling auditability  
+
+Together, these demos establish that:
+
+- performance recovery alone is insufficient to guarantee reliability
+- temporal consistency (Δt) must be monitored explicitly
+- adaptive actions require **design-time permission and stopping logic**
+
+This sequence defines the **design boundary of the A-Type controller** and
+provides the **evidence base** motivating a reliability-oriented **B-Type architecture**.
 
 ---
 
@@ -71,7 +87,7 @@ but at the cost of:
 Crucially, these effects are:
 
 - **not obvious from waveforms alone**
-- but become explicit through Δt, amplitude, and FSM logic
+- but become explicit through Δt and FSM-based decision logic
 
 This distinction marks the boundary between  
 *performance optimization* and *reliability-oriented design*.
@@ -80,41 +96,36 @@ This distinction marks the boundary between
 
 ## Navigation
 
-### ▶ Detailed Demo Analyses
+### ▶ Demonstration Results (Reproducible Evidence)
 
-- **Demo 06 — Friction Aging Waveforms**  
-  [demo_06_friction_aging_waveform.md](./demo_06_friction_aging_waveform.md)
+- **Demo 12 — V–I Current Control under Aging & Disturbance**  
+  Phenomenological waveform comparison (Fixed PID / PID×FSM / AITL)  
+  → Result: `data/12_vi_current_control_sales_demo.png`  
+  → Code: `demos/12_vi_current_control_sales_demo.py`
 
-- **Demo 07 — Reliability Metrics (Δt, Amplitude)**  
-  [demo_07_metrics_dt_amp.md](./demo_07_metrics_dt_amp.md)
+- **Demo 13 — Reliability Metrics vs Aging (Δt, max|e|)**  
+  Quantitative evaluation of temporal reliability and safety degradation  
+  → Result: `data/13_aging_sweep_delta_t.png`  
+  → Code: `demos/13_aging_sweep_delta_t.py`
 
-- **Demo 08 — FSM Guard for Reliability**  
-  [demo_08_fsm_dt_amp_guard.md](./demo_08_fsm_dt_amp_guard.md)
+- **Demo 15 — FSM Explainability (Why Adaptation Switched)**  
+  Audit-ready visualization of supervisory decisions and thresholds  
+  → Result: `data/15_fsm_explainability_demo.png`  
+  → Code: `demos/15_fsm_explainability_demo.py`
 
-- **Demo 09 — Reliability Cost Trade-off**  
-  [demo_09_reliability_cost.md](./demo_09_reliability_cost.md)
+These demos constitute the **evidence layer** supporting the
+reliability conclusions of the A-Type controller.
 
 ---
 
 ## Reference Figure
 
 - 🖼 **Timing degradation under friction aging**  
-  [pid_vs_aitl_friction_aging.png](
-  https://samizo-aitl.github.io/aitl-controller-a-type/data/pid_vs_aitl_friction_aging.png
-  )
+  [pid_vs_aitl_friction_aging.png](https://samizo-aitl.github.io/aitl-controller-a-type/data/pid_vs_aitl_friction_aging.png)
 
 This figure provides a *phenomenological overview* only.  
 All reliability conclusions are derived from quantitative metrics  
 and FSM-based decisions described in the demos above.
-
----
-
-## Relation to Other Documentation
-
-- This section corresponds to the **Reliability Investigation**  
-  introduced briefly in the main documentation index.
-- The index page presents only representative conclusions.
-- Detailed reasoning, metrics, and design implications are contained here.
 
 ---
 
@@ -123,7 +134,7 @@ and FSM-based decisions described in the demos above.
 This reliability chapter demonstrates that:
 
 - timing degradation can be quantified (Δt)
-- authority loss can be detected (amplitude ratio)
+- authority loss can be detected (max|e|)
 - adaptive behavior can and **should be stopped by design**
 
 The result is not a failure of AITL,  
@@ -140,13 +151,11 @@ but a **clear design boundary** between:
 The A-Type controller successfully demonstrated adaptive control capability
 under plant aging conditions.
 
-While the feasibility of reliability-oriented control was investigated,
-the current A-Type architecture was not designed to guarantee reliability,
-as adaptive actions may degrade timing consistency and motion authority.
+However, the current A-Type architecture is **not designed to guarantee
+reliability**, as adaptive actions may degrade timing consistency and
+motion authority.
 
 This result clarifies the design boundary of the A-Type controller and
 motivates the investigation of a **B-Type architecture explicitly designed
 for reliability control**, in which adaptive actions are evaluated and
 accepted only if overall reliability is improved.
-
-
