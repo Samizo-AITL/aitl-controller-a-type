@@ -180,16 +180,24 @@ Output:
 
 ---
 
-# 🔍 7. Reliability Investigation — Plant Aging
+## 🔍 7. Reliability Investigation — Plant Aging
 
-Beyond ideal conditions, the AITL controller was evaluated under
-**severe long-term plant degradation** equivalent to **1000 days of friction aging**.
+Beyond ideal conditions, the AITL controller was evaluated under  
+**severe long-term plant degradation**, modeled as  
+**friction aging equivalent to 1000 days**.
 
-The focus is **not peak performance**, but **temporal reliability**:
-whether response timing (Δt) can be preserved as plant dynamics deviate
-from nominal conditions.
+The objective of this investigation is **not to claim superiority**,  
+but to **identify the operational boundary** of adaptive control.
 
-### Representative Result (Aging Sweep)
+The primary focus is **temporal reliability**:
+
+- recovery timing consistency (Δt)
+- degradation detectability
+- and explicit criteria for **when adaptation should be restricted**
+
+---
+
+### Representative Result — Aging Sweep (Δt vs Aging)
 
 <img
   src="https://samizo-aitl.github.io/aitl-controller-a-type/data/13_aging_sweep_delta_t.png"
@@ -197,15 +205,72 @@ from nominal conditions.
   style="display:block; margin:1.5rem auto; width:80%; max-width:100%;"
 />
 
-**What this shows**
-- Recovery time Δt degrades with aging for all controllers
-- AITL preserves timing better than fixed-gain PID in moderate aging
-- Reliability limits become **explicit and quantifiable**
+---
 
-Detailed waveforms, metrics, and explainability analysis are documented separately.
+### Interpretation (Design-Relevant, Not Marketing)
 
-👉 **Full reliability analysis:**  
+This result demonstrates that:
+
+- **All controllers degrade** as plant aging progresses  
+- **AITL improves recovery timing only within a limited aging range**
+- Beyond that range, continued adaptation **does not preserve reliability**
+- The degradation trend is **explicitly measurable via Δt**
+
+Crucially, this means:
+
+> **AITL is effective only within a clearly identifiable operating region.**
+
+Outside that region, adaptation must be **restricted or stopped by design**.
+
+---
+
+### Why This Result Matters
+
+This analysis does **not** argue that AITL is universally better.
+
+Instead, it establishes that:
+
+- Adaptive control has a **finite, observable reliability boundary**
+- That boundary can be detected **before instability or failure**
+- Δt serves as a **design-time and run-time decision metric**
+
+In other words, the result answers:
+
+> **“Until when is AITL safe to use?”**
+
+—not just *“Does it work?”*
+
+---
+
+### Design Implication
+
+This finding directly motivates a **reliability-first extension**:
+
+- **A-Type**: demonstrates adaptive capability  
+- **B-Type**: decides *whether adaptation should be allowed*
+
+The reliability investigation provides the **evidence layer**
+that makes B-Type a **necessary architectural evolution**,  
+not a conceptual add-on.
+
+---
+
+### Further Details
+
+Detailed waveforms, quantitative metrics, and explainable supervisory logic
+are documented separately.
+
+👉 **Full reliability analysis (reproducible evidence):**  
 - [Reliability Analysis — AITL under Plant Aging](docs/reliability/)
+
+---
+
+### One-Line Summary
+
+> **AITL is not always beneficial — and that fact is measurable.**  
+>  
+> This investigation identifies the operating region  
+> where adaptive control should be applied — and where it should not.
 
 ---
 
