@@ -28,12 +28,16 @@ Its purpose is not to improve performance, but to **prevent adaptation from degr
 The FSM evaluates system health using **dimensionless, normalized metrics**.  
 This ensures robustness across operating points and plant variations.
 
-The primary metrics are:
+Primary monitored quantities:
 
-1. Response delay ratio (Δt / Δt₀)  
-2. Gain compensation ratio (K / K₀)  
-3. Amplitude ratio and saturation indicators  
-4. Adaptation frequency (optional, for chattering detection)
+1. **Response delay ratio** \( R_{\Delta t} = \Delta t / \Delta t_0 \)  
+2. **Gain compensation ratio(s)** \( R_{K_P}, R_{K_I}, R_{K_D} \) (or a norm)  
+3. **Amplitude / authority ratio** \( R_A \) and **saturation indicators**  
+4. **Adaptation frequency** \( N_{\text{adapt}} \) (optional; anti-chattering)
+
+> **Note:** In the current A-Type demos, adaptation mainly adjusts **\(K_P\)**.  
+> Therefore, B-Type may start with \(R_{K_P}\) as the primary gain guard,
+> and later extend to \(K_I, K_D\) if needed.
 
 ---
 
@@ -42,20 +46,53 @@ The primary metrics are:
 ### Definition
 
 Let:
-- Δt₀ : Nominal response delay under healthy plant conditions  
-- Δt  : Measured response delay under current conditions  
+- \( \Delta t_0 \) : nominal response delay under healthy plant conditions  
+- \( \Delta t \)   : measured response delay under current conditions  
 
-The normalized delay ratio is defined as:
+The normalized delay ratio is:
 
 \[
 R_{\Delta t} = \frac{\Delta t}{\Delta t_0}
 \]
 
+### How to Measure Δt (Operational Definition)
+
+To avoid ambiguity, B-Type defines Δt using **event-to-event timing**.
+
+A practical and reproducible definition (used in the A-Type sweep) is:
+
+- Choose a reference event time \( t_{\text{event}} \)  
+  (e.g., **disturbance start**, **reference step**, or **command change**)
+- Define Δt as the **settling recovery time** after \( t_{\text{event}} \)
+
+Example definition:
+
+- Let \( e(t) = I_{\text{ref}}(t) - I(t) \)
+- Choose a settle band \( |e(t)| < \epsilon \)
+- Require band-hold for duration \( T_{\text{hold}} \)
+
+Then Δt is:
+
+\[
+\Delta t
+= \min_{t \ge t_{\text{event}}}
+\left\{
+t - t_{\text{event}}
+\ \middle|\ 
+|e(\tau)| < \epsilon,\ \forall \tau \in [t, t+T_{\text{hold}}]
+\right\}
+\]
+
+This definition is:
+- deterministic
+- unit-consistent
+- implementable both in simulation and runtime (with sampled data)
+
 ### Interpretation
 
-- \( R_{\Delta t} \approx 1 \) : Nominal behavior  
-- \( R_{\Delta t} > 1 \) : Degradation-induced delay  
-- Large values indicate loss of responsiveness and control authority
+- \( R_{\Delta t} \approx 1 \) : nominal timing behavior  
+- \( R_{\Delta t} > 1 \) : degradation-induced delay (timing reliability loss)  
+- Large values indicate loss of responsiveness and/or authority
 
 ### Guard Threshold
 
@@ -63,68 +100,97 @@ R_{\Delta t} = \frac{\Delta t}{\Delta t_0}
 R_{\Delta t} \le R_{\Delta t}^{\max}
 \]
 
-If this condition is violated, **adaptation must be blocked**.
+If violated, **adaptation must be blocked**.
 
 ---
 
 ## Metric 2: Gain Compensation Ratio (K / K₀)
 
-### Definition
+### Definition (per gain)
 
 Let:
-- \( K_0 \) : Nominal PID gain set  
-- \( K \)   : Current (adapted) gain set  
+- \( K_{P0}, K_{I0}, K_{D0} \) : nominal gains  
+- \( K_P, K_I, K_D \)         : current gains  
 
-The gain compensation ratio is defined as:
+Define per-gain ratios:
 
 \[
-R_{K} = \frac{K}{K_0}
+R_{K_P} = \frac{K_P}{K_{P0}},\quad
+R_{K_I} = \frac{K_I}{K_{I0}},\quad
+R_{K_D} = \frac{K_D}{K_{D0}}
 \]
 
-For multi-gain controllers, this ratio may be evaluated per component  
-(e.g., \(K_P, K_I, K_D\)) or using a weighted norm.
+If only \(K_P\) is adapted, then \(R_{K_P}\) is the primary guard.
 
 ### Interpretation
 
-- \( R_K \approx 1 \) : Nominal control effort  
-- \( R_K \gg 1 \) : Over-compensation risk  
-- Excessive gain increase often precedes instability or saturation
+- \( R_{K_*} \approx 1 \) : nominal control effort  
+- \( R_{K_*} \gg 1 \) : over-compensation risk  
+- excessive gain escalation often precedes saturation, oscillation, or instability
 
 ### Guard Threshold
 
 \[
-R_K \le R_{K}^{\max}
+R_{K_P} \le R_{K_P}^{\max},\quad
+R_{K_I} \le R_{K_I}^{\max},\quad
+R_{K_D} \le R_{K_D}^{\max}
 \]
 
-Violation indicates **unsafe compensation**, triggering adaptation blocking.
+If any violated, adaptation is **blocked**.
+
+### Rate Guard (Aggressiveness / “dK/dt”)
+
+Even if absolute gains are within limits, rapid gain movement is risky.
+
+Define a normalized gain rate guard (example for \(K_P\)):
+
+\[
+R_{\dot K_P} = \frac{|K_P(t) - K_P(t-\Delta T)|}{K_{P0}}
+\]
+
+Guard:
+
+\[
+R_{\dot K_P} \le R_{\dot K_P}^{\max}
+\]
 
 ---
 
-## Metric 3: Amplitude Ratio and Saturation
+## Metric 3: Amplitude / Authority Ratio and Saturation
 
 ### Definition
 
 Let:
-- \( A_{\text{out}} \) : Output response amplitude  
-- \( A_{\text{ref}} \) : Reference amplitude  
-
-The amplitude ratio is:
+- \( A_{\text{out}} \) : output response amplitude (or peak-to-peak)  
+- \( A_{\text{ref}} \) : reference amplitude  
 
 \[
 R_A = \frac{A_{\text{out}}}{A_{\text{ref}}}
 \]
 
-In addition, actuator saturation flags may be monitored.
+Additionally, define saturation indicators:
+
+- \( S_u \): fraction of time actuator is saturated  
+- \( S_u = \frac{1}{T}\int \mathbf{1}(|u(t)| = u_{\max})\,dt \) (conceptual)
+- or discrete equivalent in sampled systems
 
 ### Interpretation
 
-- Excessive amplitude indicates loss of damping
-- Frequent saturation implies erosion of motion authority
+- excessive amplitude suggests reduced damping / margin erosion
+- frequent saturation indicates loss of motion authority (cannot realize commands)
 
 ### Guard Usage
 
-Amplitude-related metrics are typically used as **secondary guards**  
-or combined into a reliability cost function.
+Amplitude and saturation are typically used as:
+- **secondary guards**, or
+- components of a reliability cost function
+
+Example guards:
+
+\[
+R_A \le R_A^{\max},\quad
+S_u \le S_u^{\max}
+\]
 
 ---
 
@@ -133,40 +199,43 @@ or combined into a reliability cost function.
 ### Definition
 
 Let:
-- \( N_{\text{adapt}} \) : Number of adaptation events per unit time  
+- \( N_{\text{adapt}} \) : number of gain updates per unit time window \(T_w\)
 
-Excessive adaptation frequency is a sign of instability in the supervisory logic.
+Guard:
 
-### Guard Rule
-
-If:
 \[
-N_{\text{adapt}} > N_{\text{adapt}}^{\max}
+N_{\text{adapt}} \le N_{\text{adapt}}^{\max}
 \]
 
-then adaptation is blocked to prevent oscillatory redesign behavior.
+If violated, adaptation is blocked to prevent oscillatory redesign behavior.
 
 ---
 
-## FSM Decision Logic
+## Permission Logic (Minimal Specification)
 
-### Composite Guard Condition
-
-Adaptation is permitted **only if all guard conditions are satisfied**:
+B-Type permits adaptation **only if all conditions below are satisfied**:
 
 \[
 \begin{aligned}
 R_{\Delta t} &\le R_{\Delta t}^{\max} \\
-R_{K}        &\le R_{K}^{\max} \\
-R_A          &\le R_{A}^{\max}
+R_{K_P}      &\le R_{K_P}^{\max} \\
+R_{\dot K_P} &\le R_{\dot K_P}^{\max} \\
+\text{(optional)}\quad R_A &\le R_A^{\max} \\
+\text{(optional)}\quad S_u &\le S_u^{\max}
 \end{aligned}
 \]
 
-If any condition is violated, the FSM transitions to **ADAPT_BLOCKED**.
+If **any** condition is violated:
+
+- Adaptation is **disabled**
+- Controller **falls back to fixed-gain PID**
+- FSM enters a protective state until recovery
+
+> Blocking adaptation is a **correct and expected outcome** in B-Type.
 
 ---
 
-## FSM State Transitions
+## FSM State Transitions (Operational)
 
 ```mermaid
 stateDiagram-v2
@@ -176,10 +245,10 @@ stateDiagram-v2
     DEGRADED --> ADAPT_ALLOWED : All guards satisfied
     DEGRADED --> ADAPT_BLOCKED : Any guard violated
 
-    ADAPT_ALLOWED --> DEGRADED : Metrics drift
-    ADAPT_BLOCKED --> SAFE_MODE : Persistent violation
+    ADAPT_ALLOWED --> DEGRADED : Metrics drift / guard at risk
+    ADAPT_BLOCKED --> SAFE_MODE : Persistent violation or repeated blocking
 
-    SAFE_MODE --> NORMAL : Manual reset / maintenance
+    SAFE_MODE --> NORMAL : Manual reset / maintenance / re-baseline
 ```
 
 ---
@@ -187,10 +256,11 @@ stateDiagram-v2
 ## Design Implications
 
 - Adaptation is **explicitly constrained**, not implicitly discouraged
-- Performance improvement never overrides reliability limits
-- Long-term degradation naturally leads to conservative control behavior
+- performance improvement never overrides reliability limits
+- long-term degradation naturally leads to conservative control behavior
 
-> In B-Type, *blocking adaptation is a correct and expected outcome*.
+> In B-Type, the system is designed to converge toward safety,
+> not to chase performance indefinitely.
 
 ---
 
@@ -198,16 +268,23 @@ stateDiagram-v2
 
 The FSM Reliability Guard provides:
 
-- Formal, quantitative reliability definitions  
-- Clear and deterministic adaptation permission rules  
-- A structural safeguard against over-compensation  
+- formal, quantitative reliability definitions  
+- explicit measurement semantics for Δt (event-based)  
+- deterministic permission logic for adaptation  
+- guaranteed fallback to fixed PID  
 
 By enforcing these guard conditions,  
-B-Type transforms adaptive control into a **reliability-aware control architecture**.
+B-Type transforms adaptive control into a **reliability-aware supervisory architecture**.
 
 ---
 
-The next sections may include:
+## Next Sections
+
 - Reliability cost function formulation  
+  → [`reliability_cost.md`](reliability_cost.md)
+
 - Parameter selection guidelines for guard thresholds  
-- Mapping from simulation metrics to real sensor data
+  → [`threshold_guidelines.md`](threshold_guidelines.md)
+
+- Demo mapping and integration  
+  → [`demo_mapping.md`](demo_mapping.md)
