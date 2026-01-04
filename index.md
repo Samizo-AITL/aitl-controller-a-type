@@ -74,12 +74,25 @@ AITL-CONTROLLER-A-TYPE/
 │   ├── 02_fsm_mode_switch.py
 │   ├── 03_hybrid_pid_fsm_demo.py
 │   ├── 04_hybrid_fsm_llm_demo.py
-│   └── 05_aitl_full_demo.py
+│   ├── 05_aitl_full_demo.py
+│   │
+│   ├── 12_vi_current_control_sales_demo.py
+│   │   └─ V–I current control comparison under aging & disturbance
+│   ├── 13_aging_sweep_delta_t.py
+│   │   └─ reliability metrics sweep (Δt, max|e| vs aging)
+│   └── 15_fsm_explainability_demo.py
+│       └─ FSM explainability & audit-ready transition rationale
 │
 ├── data/
 │   ├── aitl_full_demo_ideal.png
 │   ├── aitl_full_demo_ideal.pdf
-│   └── other demo outputs…
+│   │
+│   ├── 12_vi_current_control_sales_demo.png
+│   │   └─ waveform comparison (Fixed PID / PID×FSM / AITL)
+│   ├── 13_aging_sweep_delta_t.png
+│   │   └─ quantitative reliability & safety metrics
+│   └── 15_fsm_explainability_demo.png
+│       └─ explainable FSM mode switching visualization
 │
 ├── tests/
 │
