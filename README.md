@@ -154,34 +154,32 @@ Output:
 
 ---
 
-# 🔍 7. "Addition" — Reliability Investigation under Plant Aging
+# 🔍 7. Reliability Investigation — Plant Aging
 
-As an ongoing investigation, we are evaluating the behavior of the
-AITL Controller under **long-term plant degradation** equivalent to
-**1000 days of friction aging**.
+Beyond ideal conditions, the AITL controller was evaluated under
+**severe long-term plant degradation** equivalent to **1000 days of friction aging**.
 
-The focus of this study is not peak performance, but **temporal reliability**:
-whether the controller can preserve response timing (Δt)
-when the plant characteristics significantly deviate from nominal conditions.
+The focus is **not peak performance**, but **temporal reliability**:
+whether response timing (Δt) can be preserved as plant dynamics deviate
+from nominal conditions.
 
-Representative simulation results indicate that:
+### Representative Result (Aging Sweep)
 
-> **AITL tends to preserve the temporal structure of the response  
-> even under severe plant aging, compared with fixed-gain PID control.**
+<img
+  src="https://samizo-aitl.github.io/aitl-controller-a-type/data/13_aging_sweep_delta_t.png"
+  alt="Reliability metrics vs aging"
+  style="display:block; margin:1.5rem auto; width:80%; max-width:100%;"
+/>
 
-To keep this index page concise,  
-detailed simulation results, figures, and interpretations
-are documented separately.
+**What this shows**
+- Recovery time Δt degrades with aging for all controllers
+- AITL preserves timing better than fixed-gain PID in moderate aging
+- Reliability limits become **explicit and quantifiable**
 
-👉 **See detailed analysis here:**  
-- [Reliability Analysis — Plant Aging & Timing Degradation](docs/reliability/)
+Detailed waveforms, metrics, and explainability analysis are documented separately.
 
-👉 **Design-level conclusions:**  
-- [Summary — Reliability-Oriented Control Insights](docs/reliability/summary.html)
-
-This investigation motivates the positioning of AITL as a form of  
-**Reliability-Oriented Control**, where maintaining timing consistency
-is treated as a primary design objective.
+👉 **Full reliability analysis:**  
+- [Reliability Analysis — AITL under Plant Aging](docs/reliability/)
 
 ---
 
