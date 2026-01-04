@@ -83,7 +83,7 @@ based on predefined reliability conditions.
 A **Finite State Machine (FSM)** acts as a supervisory layer that evaluates  
 *reliability deviation* rather than performance improvement.
 
-Typical metrics include:
+Typical monitored quantities include:
 
 - Response timing deviation ratio (Δt / Δt₀)
 - Amplitude or authority deviation
@@ -116,6 +116,30 @@ This guarantees:
 
 > The fixed PID is not a failure mode.  
 > It is the **reliability floor** of the system.
+
+---
+
+## Permission Logic (Minimal Specification)
+
+B-Type formalizes adaptation control using an explicit **permission logic**.
+
+Adaptation is enabled **only if all reliability conditions are satisfied**:
+
+- **Δt / Δt₀ ≤ Δt_allow**  
+  (temporal reliability is within acceptable degradation)
+- **max|e| ≤ e_allow**  
+  (safety envelope is preserved)
+- **|ΔKp| / Kp₀ ≤ Kp_rate_allow**  
+  (adaptation aggressiveness is bounded)
+
+If **any** condition is violated:
+
+- Adaptation is **disabled**
+- Controller **falls back to fixed-gain PID**
+- FSM remains in a *reliability protection* state until recovery
+
+This logic ensures that adaptive behavior is  
+**explicitly gated by reliability, not by optimism**.
 
 ---
 
@@ -161,10 +185,15 @@ Important clarification:
 B-Type intentionally reuses A-Type demonstrations,  
 but **reinterprets their meaning through a reliability lens**.
 
-- Demo06: Degradation visualization → *baseline deviation reference*
-- Demo07: Δt / amplitude metrics → *FSM inputs*
-- Demo08: FSM reliability guard → *core B-Type mechanism*
-- Demo09: Reliability cost trade-off → *design-time decision support*
+> **Note:**  
+> Demo numbers below refer to *conceptual roles*.  
+> Concrete evidence is provided by A-Type demos (12, 13, 15),
+> which are reinterpreted through B-Type reliability supervision.
+
+- Degradation visualization → *baseline deviation reference*
+- Δt / amplitude metrics → *FSM inputs*
+- FSM explainability → *permission decision rationale*
+- Reliability cost trade-off → *design-time decision support*
 
 🔗 **Demo correspondence:**  
 - A-Type → B-Type demo mapping  
