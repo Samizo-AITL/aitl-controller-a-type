@@ -180,7 +180,7 @@ Output:
 
 ---
 
-## 🔍 7. Reliability Investigation — Plant Aging
+## 🔍  Reliability Investigation — Plant Aging
 
 Beyond ideal conditions, the AITL controller was evaluated under  
 **severe long-term plant degradation**, modeled as  
@@ -355,7 +355,7 @@ This section is recommended when:
 
 ---
 
-# 👤 8.　Author
+# 👤 7.　Author
 
 | 📌 Item | Details |
 |--------|---------|
@@ -365,7 +365,7 @@ This section is recommended when:
 
 ---
 
-# 📄 9. License
+# 📄 8. License
 
 [![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/aitl-contller-a-type//#-license)
 
@@ -378,7 +378,7 @@ This section is recommended when:
 
 ---
 
-# 💬 10.　Feedback
+# 💬 9.　Feedback
 
 > Suggestions, improvements, and discussions are welcome via GitHub Discussions.
 
