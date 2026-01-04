@@ -276,15 +276,34 @@ are documented separately.
 
 ## 🟢 B-Type: Reliability-First AITL (Design Extension)
 
-Based on the reliability investigation under plant aging,
-a reliability-first architectural extension of AITL has been formulated.
+The A-Type results show that **adaptive control has a finite reliability boundary**:
+beyond a certain aging range, continued adaptation can degrade **temporal reliability (Δt)**.
 
-This extension focuses not on performance optimization,
-but on **deciding when adaptation should be restricted**.
+**B-Type** is a design extension that turns this boundary into an
+**operational rule**, by introducing an explicit **reliability permission layer**.
 
-👉 **AITL Controller B-Type (Design Documentation)**  
-- Reliability-first architecture  
-- FSM-based adaptation guard  
+### What B-Type Adds (Conceptual)
+
+B-Type does **not** aim to maximize performance.
+Instead, it decides **whether adaptation should be allowed** based on
+monitored reliability conditions.
+
+Typical monitored quantities include:
+
+- **Δt**: recovery timing / temporal reliability
+- **max|e|**: safety envelope (worst deviation)
+- **|ΔKp| or dKp/dt**: adaptation aggressiveness (stability risk)
+
+### Core Idea
+
+> **A-Type proves adaptation capability.**  
+> **B-Type enforces adaptation responsibility.**
+
+Adaptive tuning is applied only when reliability metrics satisfy
+design-time criteria; otherwise the system restricts adaptation and
+falls back to a conservative mode (e.g., fixed-gain PID).
+
+👉 **B-Type Design Documentation (architecture & guard logic)**  
 → [docs/b_type/](docs/b_type/)
 
 ---
