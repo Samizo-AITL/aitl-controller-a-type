@@ -132,7 +132,7 @@ Provides explainable control-mode transitions.
 | `05_aitl_full_demo.py` | Full AITL joint system (ideal condition demo) |
 |  |  |
 | `12_vi_current_control_sales_demo.py` | V–I current control comparison under aging & disturbance (Fixed PID / PID×FSM / AITL) |
-| `13_aging_sweep_delta_t.py` | Reliability metrics sweep vs aging (Δt, max|e|) |
+| `13_aging_sweep_delta_t.py` | Reliability metrics sweep vs aging (Δt, max　e) |
 | `15_fsm_explainability_demo.py` | FSM explainability demo (why and when modes switched) |
 
 **Note:**  
