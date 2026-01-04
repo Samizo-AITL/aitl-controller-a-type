@@ -271,32 +271,42 @@ are documented separately.
 
 ## 🟢 B-Type: Reliability-First AITL (Design Extension)
 
-The A-Type results show that **adaptive control has a finite reliability boundary**:
-beyond a certain aging range, continued adaptation can degrade **temporal reliability (Δt)**.
+The A-Type results demonstrate that **adaptive control has a finite reliability boundary**:
+beyond a certain aging or degradation range, continued adaptation may degrade
+**temporal reliability (Δt)** rather than improve performance.
 
-**B-Type** is a design extension that turns this boundary into an
-**operational rule**, by introducing an explicit **reliability permission layer**.
+**B-Type** is a design extension that transforms this empirical boundary into an
+explicit **operational rule** by introducing a dedicated
+**reliability permission layer**.
+
+---
 
 ### What B-Type Adds (Conceptual)
 
 B-Type does **not** aim to maximize performance.
-Instead, it decides **whether adaptation should be allowed** based on
+Instead, it determines **whether adaptation is permitted** based on
 monitored reliability conditions.
 
 Typical monitored quantities include:
 
-- **Δt**: recovery timing / temporal reliability
-- **max|e|**: safety envelope (worst deviation)
-- **|ΔKp| or dKp/dt**: adaptation aggressiveness (stability risk)
+- **Δt**: recovery time / temporal reliability
+- **max‖e‖**: safety envelope (worst-case deviation)
+- **‖ΔKp‖ or dKp/dt**: adaptation aggressiveness (stability risk)
+
+---
 
 ### Core Idea
 
 > **A-Type proves adaptation capability.**  
 > **B-Type enforces adaptation responsibility.**
 
-Adaptive tuning is applied only when reliability metrics satisfy
-design-time criteria; otherwise the system restricts adaptation and
-falls back to a conservative mode (e.g., fixed-gain PID).
+Adaptive tuning is enabled only when reliability metrics satisfy
+design-time acceptance criteria.
+If these conditions are violated, the system **restricts adaptation**
+and falls back to a conservative operating mode
+(e.g., fixed-gain PID control).
+
+---
 
 👉 **B-Type Design Documentation (architecture & guard logic)**  
 → [docs/b_type/](docs/b_type/)
