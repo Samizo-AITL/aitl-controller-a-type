@@ -8,6 +8,10 @@ Middle Loop: FSM (Finite State Machine)
 Outer Loop: LLM (Adaptive Gain Adjustment, A-type)
 ```
 
+> **Official Architecture Definition & Reliability Boundary of AITL Controller (A-Type)**  
+> This page defines the design rationale, operating assumptions,
+> and verified reliability limits of the AITL architecture.
+
 This project demonstrates a **clear and modular control-design methodology**,  
 rather than achieving perfectly optimized response characteristics.
 
