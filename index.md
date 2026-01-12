@@ -429,7 +429,7 @@ These layers are **complementary**, not competing.
 ### Documentation
 
 📘 **True Robust Control — Design Documentation**  
-→ [docs/true_robust_control/]
+→ [docs/true_robust_control/](docs/true_robust_control/)
 
 This section is recommended when:
 - H∞ control feels too static or overly conservative
