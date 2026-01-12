@@ -68,7 +68,7 @@ demos/05_aitl_full_demo.py
 
 # 📄 Technical Document (PDF)
 
-👉 **[aitl-controller-a-type.pdf](aitl-controller-a-type.pdf)**
+👉 **[aitl-controller-a-type.pdf](aitl-controller-a-type.pdf)** 
 
 ---
 
