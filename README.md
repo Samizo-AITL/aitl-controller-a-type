@@ -444,7 +444,7 @@ This section is recommended when:
 
 # 📄 8. License
 
-[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/aitl-controller-a-type//#-license)
+[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/aitl-controller-a-type/#---license)
 
 | 📌 Item | License | Description |
 |--------|---------|-------------|
