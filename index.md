@@ -315,7 +315,7 @@ Detailed waveforms, quantitative metrics, and explainable supervisory logic
 are documented separately.
 
 👉 **Full reliability analysis (reproducible evidence):**  
-- [Reliability Analysis — AITL under Plant Aging](docs/reliability/)
+- [**Reliability Analysis — AITL under Plant Aging**](docs/reliability/)
 
 ---
 
@@ -368,7 +368,7 @@ and falls back to a conservative operating mode
 ---
 
 👉 **B-Type Design Documentation (architecture & guard logic)**  
-→ [docs/b_type/](docs/b_type/)
+→ [**docs/b_type/**](docs/b_type/)
 
 ---
 
@@ -427,7 +427,7 @@ These layers are **complementary**, not competing.
 ### Documentation
 
 📘 **True Robust Control — Design Documentation**  
-→ [docs/true_robust_control/](docs/true_robust_control/)
+→ [**docs/true_robust_control/**](docs/true_robust_control/)
 
 This section is recommended when:
 - H∞ control feels too static or overly conservative
