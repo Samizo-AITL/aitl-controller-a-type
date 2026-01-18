@@ -1,3 +1,11 @@
+---
+title: "AITL Controller B-Type"
+description: "Reliability-first supervisory control architecture with deviation-based permissioned adaptation"
+layout: default
+nav_order: 1
+parent: "B-Type Architecture"
+---
+
 # AITL Controller B-Type  
 ## Reliability-First Supervisory Control Architecture
 
@@ -33,7 +41,7 @@ In short:
 
 Reliability analysis under plant aging revealed the following:
 
-- Adaptive control can temporarily compensate response delay (Δt)
+- Adaptive control can temporarily compensate response delay ($\Delta t$)
 - However, it may also cause:
   - Excessive gain escalation
   - Actuator saturation and authority loss
@@ -75,11 +83,11 @@ based on predefined reliability conditions.
 A **Finite State Machine (FSM)** acts as a supervisory layer that evaluates  
 *reliability deviation* rather than performance improvement.
 
-Typical metrics include:
+Typical monitored quantities include:
 
-- Response timing deviation ratio (Δt / Δt₀)
+- Response timing deviation ratio ($\Delta t / \Delta t_0$)
 - Amplitude or authority deviation
-- Gain deviation ratio (K / K₀)
+- Gain deviation ratio ($K / K_0$)
 - Saturation ratio (V–I limits)
 - Adaptation frequency (chattering detection)
 
@@ -108,6 +116,30 @@ This guarantees:
 
 > The fixed PID is not a failure mode.  
 > It is the **reliability floor** of the system.
+
+---
+
+## Permission Logic (Minimal Specification)
+
+B-Type formalizes adaptation control using an explicit **permission logic**.
+
+Adaptation is enabled **only if all reliability conditions are satisfied**:
+
+- **$\Delta t / \Delta t_0 \le \Delta t_{\text{allow}}$**  
+  (temporal reliability is within acceptable degradation)
+- **$\max |e| \le e_{\text{allow}}$**  
+  (safety envelope is preserved)
+- **$|\Delta K_p| / K_{p0} \le K_{p,\text{rate allow}}$**  
+  (adaptation aggressiveness is bounded)
+
+If **any** condition is violated:
+
+- Adaptation is **disabled**
+- Controller **falls back to fixed-gain PID**
+- FSM remains in a *reliability protection* state until recovery
+
+This logic ensures that adaptive behavior is  
+**explicitly gated by reliability, not by optimism**.
 
 ---
 
@@ -153,10 +185,15 @@ Important clarification:
 B-Type intentionally reuses A-Type demonstrations,  
 but **reinterprets their meaning through a reliability lens**.
 
-- Demo06: Degradation visualization → *baseline deviation reference*
-- Demo07: Δt / amplitude metrics → *FSM inputs*
-- Demo08: FSM reliability guard → *core B-Type mechanism*
-- Demo09: Reliability cost trade-off → *design-time decision support*
+> **Note:**  
+> Demo numbers below refer to *conceptual roles*.  
+> Concrete evidence is provided by A-Type demos (12, 13, 15),
+> which are reinterpreted through B-Type reliability supervision.
+
+- Degradation visualization → *baseline deviation reference*
+- $\Delta t$ / amplitude metrics → *FSM inputs*
+- FSM explainability → *permission decision rationale*
+- Reliability cost trade-off → *design-time decision support*
 
 🔗 **Demo correspondence:**  
 - A-Type → B-Type demo mapping  
@@ -199,4 +236,3 @@ In essence:
 ---
 
 *End of B-Type Overview*
-
