@@ -3,11 +3,14 @@ layout: default
 title: Samizo-Lab AITL Controller
 ---
 
-# Samizo-Lab AITL Controller (A-type)
+# 🧠 Samizo-Lab AITL Controller (A-type)
 
-A lightweight educational implementation of the **AITL layered control architecture**,  
-designed to clearly distinguish **runtime control responsibility** and  
-**design-time intelligence**.
+A lightweight educational implementation of the  
+**AITL layered control architecture**,  
+designed to clearly distinguish:
+
+- ⚙️ **runtime control responsibility**
+- 🧠 **design-time intelligence**
 
 ```
 Inner Loop : PID Controller  
@@ -16,20 +19,72 @@ Adaptive Assist Layer: NN / RL (bounded, runtime optional)
 LLM: Offline / Non-Real-Time Design Assistant (A-type)
 ```
 
-> **Official Architecture Definition & Reliability Boundary of AITL Controller (A-Type)**  
-> This page defines the design rationale, operating assumptions,  
-> and verified reliability limits of the AITL architecture.
+---
 
-> **Important Architectural Clarification**  
-> In practical runtime systems, the valid control configurations are  
-> **PID × FSM** and **PID × FSM × NN/RL (bounded)**.  
+> 📐 **Official Architecture Definition & Reliability Boundary of AITL Controller (A-Type)**  
 >  
-> **LLM is used exclusively outside the real-time control loop**  
-> for analysis, design review, and documentation purposes.
+> This page defines the **design rationale**, **operating assumptions**,  
+> and **verified reliability limits** of the AITL architecture.
+
+---
+
+> ⚠️ **Important Architectural Clarification**  
+>  
+> In practical runtime systems, the valid control configurations are:
+>  
+> - ✅ **PID × FSM**  
+> - ✅ **PID × FSM × NN / RL (bounded)**  
+>  
+> ❌ **LLM is never placed inside the real-time control loop**  
+>  
+> LLM is used **exclusively outside real-time operation** for:
+> - analysis  
+> - design review  
+> - architecture exploration  
+> - documentation and explanation  
+
+---
+
+## 🎯 Project Intent
 
 This project demonstrates a **clear and modular control-design methodology**,  
-rather than achieving perfectly optimized response characteristics  
-or autonomous intelligence.
+not the pursuit of:
+
+- maximum performance  
+- autonomous intelligence  
+- black-box optimization  
+
+Instead, the emphasis is on:
+
+- 🧩 architectural clarity  
+- 🛡 safety and determinism  
+- 📐 explicit responsibility separation  
+- 🧠 human-verifiable control logic  
+
+---
+
+### 🏗 AITL (A-type) Design Philosophy
+
+- **PID** handles *continuous physical dynamics*  
+- **FSM** governs *discrete safety and mode transitions*  
+- **NN / RL** may assist *within bounded, supervised domains*  
+- **LLM** supports *design-time reasoning only*  
+
+> **Intelligence is layered —  
+> but responsibility is never ambiguous.**
+
+---
+
+This controller is intended as a **reference architecture**,  
+suitable for:
+
+- education  
+- architectural discussion  
+- early-stage system design  
+- safety-oriented control thinking  
+
+It is **not** intended as a drop-in production controller,  
+nor as a demonstration of autonomous AI control.
 
 ---
 
