@@ -1,5 +1,5 @@
-# AITL Controller B-Type  
-## Reliability-First Supervisory Control Architecture
+# 🅱️ AITL Controller B-Type  
+## 🛡️ Reliability-First Supervisory Control Architecture
 
 ---
 
@@ -11,7 +11,7 @@
 
 ---
 
-## Overview — Why B-Type Exists
+## 🧭 Overview — Why B-Type Exists
 
 AITL Controller **B-Type** is not an extension of adaptive capability,  
 but an **architectural correction derived from A-Type reliability analysis**.
@@ -29,15 +29,15 @@ In short:
 
 ---
 
-## Design Lessons Inherited from A-Type
+## 📉 Design Lessons Inherited from A-Type
 
 Reliability analysis under plant aging revealed the following:
 
 - Adaptive control can temporarily compensate response delay ($\Delta t$)
 - However, it may also cause:
-  - Excessive gain escalation
-  - Actuator saturation and authority loss
-  - Long-term reliability degradation
+  - 📈 excessive gain escalation
+  - 🔌 actuator saturation and authority loss
+  - 🕒 long-term reliability degradation
 - These risks are **not detectable from waveform performance alone**
 
 This leads to a decisive architectural requirement:
@@ -50,19 +50,19 @@ This leads to a decisive architectural requirement:
 
 ---
 
-## Core Design Philosophy of B-Type
+## 🧱 Core Design Philosophy of B-Type
 
 B-Type is built on **three non-negotiable principles**.
 
 ---
 
-### Principle 1: Adaptation Is Permission-Based
+### ① Adaptation Is Permission-Based
 
 Adaptation is **never a default behavior**.
 
-- It is *considered*
-- It is *evaluated*
-- It is *explicitly permitted or rejected*
+- 🤔 it is *considered*
+- 📊 it is *evaluated*
+- 🚦 it is *explicitly permitted or rejected*
 
 based on predefined reliability conditions.
 
@@ -70,18 +70,18 @@ based on predefined reliability conditions.
 
 ---
 
-### Principle 2: FSM Judges Reliability — Not Performance
+### ② FSM Judges Reliability — Not Performance
 
 A **Finite State Machine (FSM)** acts as a supervisory layer that evaluates  
 *reliability deviation* rather than performance improvement.
 
 Typical monitored quantities include:
 
-- Response timing deviation ratio ($\Delta t / \Delta t_0$)
-- Amplitude or authority deviation
-- Gain deviation ratio ($K / K_0$)
-- Saturation ratio (V–I limits)
-- Adaptation frequency (chattering detection)
+- ⏱️ response timing deviation ratio ($\Delta t / \Delta t_0$)
+- 📏 amplitude or authority deviation
+- 🎚️ gain deviation ratio ($K / K_0$)
+- 🔋 saturation ratio (V–I limits)
+- 🔁 adaptation frequency (chattering detection)
 
 FSM responsibilities are intentionally limited:
 
@@ -95,23 +95,23 @@ FSM responsibilities are intentionally limited:
 
 ---
 
-### Principle 3: Guaranteed Fallback to Fixed PID
+### ③ Guaranteed Fallback to Fixed PID
 
 Under **all conditions**, the controller must be able to revert to a  
 **conservatively designed fixed PID controller**.
 
 This guarantees:
 
-- Minimum safe operation
-- Deterministic behavior
-- Explainability and auditability
+- 🛑 minimum safe operation
+- 📐 deterministic behavior
+- 🔍 explainability and auditability
 
 > The fixed PID is not a failure mode.  
 > It is the **reliability floor** of the system.
 
 ---
 
-## Permission Logic (Minimal Specification)
+## 🚦 Permission Logic (Minimal Specification)
 
 B-Type formalizes adaptation control using an explicit **permission logic**.
 
@@ -126,16 +126,16 @@ Adaptation is enabled **only if all reliability conditions are satisfied**:
 
 If **any** condition is violated:
 
-- Adaptation is **disabled**
-- Controller **falls back to fixed-gain PID**
-- FSM remains in a *reliability protection* state until recovery
+- ❌ adaptation is **disabled**
+- ↩️ controller **falls back to fixed-gain PID**
+- 🛡️ FSM remains in a *reliability protection* state until recovery
 
 This logic ensures that adaptive behavior is  
 **explicitly gated by reliability, not by optimism**.
 
 ---
 
-## Architecture Positioning (PID × FSM × LLM)
+## 🧩 Architecture Positioning (PID × FSM × LLM)
 
 B-Type explicitly separates responsibilities across time scales:
 
@@ -147,9 +147,9 @@ B-Type explicitly separates responsibilities across time scales:
 
 Important clarification:
 
-- **LLM is never a runtime decision-maker**
-- LLM may assist *offline gain design*
-- Final approval always belongs to the engineer
+- 🚫 **LLM is never a runtime decision-maker**
+- 🧠 LLM may assist *offline gain design*
+- 👤 final approval always belongs to the engineer
 
 🔗 **Architecture details:**  
 - PID × FSM × LLM structure  
@@ -157,7 +157,7 @@ Important clarification:
 
 ---
 
-## Positioning of A-Type vs B-Type
+## ⚖️ Positioning of A-Type vs B-Type
 
 | Aspect | A-Type | B-Type |
 |---|---|---|
@@ -172,7 +172,7 @@ Important clarification:
 
 ---
 
-## Mapping to Existing Demonstrations
+## 🔁 Mapping to Existing Demonstrations
 
 B-Type intentionally reuses A-Type demonstrations,  
 but **reinterprets their meaning through a reliability lens**.
@@ -182,10 +182,10 @@ but **reinterprets their meaning through a reliability lens**.
 > Concrete evidence is provided by A-Type demos (12, 13, 15),
 > which are reinterpreted through B-Type reliability supervision.
 
-- Degradation visualization → *baseline deviation reference*
+- 📉 degradation visualization → *baseline deviation reference*
 - $\Delta t$ / amplitude metrics → *FSM inputs*
-- FSM explainability → *permission decision rationale*
-- Reliability cost trade-off → *design-time decision support*
+- 🧾 FSM explainability → *permission decision rationale*
+- 🧮 reliability cost trade-off → *design-time decision support*
 
 🔗 **Demo correspondence:**  
 - A-Type → B-Type demo mapping  
@@ -193,13 +193,13 @@ but **reinterprets their meaning through a reliability lens**.
 
 ---
 
-## Summary — What B-Type Actually Is
+## 🧠 Summary — What B-Type Actually Is
 
 AITL Controller B-Type is:
 
-- A controller that **limits adaptation**
-- A system that prioritizes **not breaking over optimizing**
-- An architecture that explicitly encodes **engineering judgment**
+- 🚧 a controller that **limits adaptation**
+- 🛡️ a system that prioritizes **not breaking over optimizing**
+- 🧩 an architecture that explicitly encodes **engineering judgment**
 
 In essence:
 
@@ -208,7 +208,7 @@ In essence:
 
 ---
 
-## Recommended Reading Order
+## 📚 Recommended Reading Order
 
 1. **Architecture overview**  
    → [`architecture.md`](architecture.md)
