@@ -41,7 +41,7 @@ In short:
 
 Reliability analysis under plant aging revealed the following:
 
-- Adaptive control can temporarily compensate response delay (Δt)
+- Adaptive control can temporarily compensate response delay ($\Delta t$)
 - However, it may also cause:
   - Excessive gain escalation
   - Actuator saturation and authority loss
@@ -85,9 +85,9 @@ A **Finite State Machine (FSM)** acts as a supervisory layer that evaluates
 
 Typical monitored quantities include:
 
-- Response timing deviation ratio (Δt / Δt₀)
+- Response timing deviation ratio ($\Delta t / \Delta t_0$)
 - Amplitude or authority deviation
-- Gain deviation ratio (K / K₀)
+- Gain deviation ratio ($K / K_0$)
 - Saturation ratio (V–I limits)
 - Adaptation frequency (chattering detection)
 
@@ -125,11 +125,11 @@ B-Type formalizes adaptation control using an explicit **permission logic**.
 
 Adaptation is enabled **only if all reliability conditions are satisfied**:
 
-- **Δt / Δt₀ ≤ Δt_allow**  
+- **$\Delta t / \Delta t_0 \le \Delta t_{\text{allow}}$**  
   (temporal reliability is within acceptable degradation)
-- **max|e| ≤ e_allow**  
+- **$\max |e| \le e_{\text{allow}}$**  
   (safety envelope is preserved)
-- **|ΔKp| / Kp₀ ≤ Kp_rate_allow**  
+- **$|\Delta K_p| / K_{p0} \le K_{p,\text{rate allow}}$**  
   (adaptation aggressiveness is bounded)
 
 If **any** condition is violated:
@@ -191,7 +191,7 @@ but **reinterprets their meaning through a reliability lens**.
 > which are reinterpreted through B-Type reliability supervision.
 
 - Degradation visualization → *baseline deviation reference*
-- Δt / amplitude metrics → *FSM inputs*
+- $\Delta t$ / amplitude metrics → *FSM inputs*
 - FSM explainability → *permission decision rationale*
 - Reliability cost trade-off → *design-time decision support*
 
