@@ -21,6 +21,14 @@ LLM: Offline / Non-Real-Time Design Assistant (A-type)
 
 ---
 
+## 🔗 Links
+
+| Language | GitHub Pages 🌐 | GitHub 💻 |
+|----------|----------------|-----------|
+| 🇺🇸 English | [![GitHub Pages EN](https://img.shields.io/badge/GitHub%20Pages-English-brightgreen?logo=github)](https://samizo-aitl.github.io/aitl-controller-a-type/) | [![GitHub Repo EN](https://img.shields.io/badge/GitHub-English-blue?logo=github)](https://github.com/Samizo-AITL/aitl-controller-a-type/tree/main) |
+
+---
+
 > 📐 **Official Architecture Definition & Reliability Boundary of AITL Controller (A-Type)**  
 >  
 > This page defines the **design rationale**, **operating assumptions**,  
@@ -85,14 +93,6 @@ suitable for:
 
 It is **not** intended as a drop-in production controller,  
 nor as a demonstration of autonomous AI control.
-
----
-
-## 🔗 Links
-
-| Language | GitHub Pages 🌐 | GitHub 💻 |
-|----------|----------------|-----------|
-| 🇺🇸 English | [![GitHub Pages EN](https://img.shields.io/badge/GitHub%20Pages-English-brightgreen?logo=github)](https://samizo-aitl.github.io/aitl-controller-a-type/) | [![GitHub Repo EN](https://img.shields.io/badge/GitHub-English-blue?logo=github)](https://github.com/Samizo-AITL/aitl-controller-a-type/tree/main) |
 
 ---
 
@@ -177,52 +177,54 @@ AITL-CONTROLLER-A-TYPE/
 
 # ⚙️ 2. AITL Architecture Overview
 
-## **2.1 PID Layer**
-- variable sampling period `dt`
-- integral & derivative reset
-- normal / high-response gain profiles  
+## 🔁 **2.1 PID Layer**
+- ⏱️ variable sampling period `dt`  
+- 🔄 integral & derivative reset  
+- 🎚️ normal / high-response gain profiles  
 
 **Role:**  
-Provides deterministic stability and baseline performance in real time.
+🛡️ Provides deterministic stability and baseline performance in real time.
 
 ---
 
-## **2.2 FSM Layer**
-Switching logic:
+## 🔀 **2.2 FSM Layer**
+**Switching logic:**
 
 ```
 normal → high   (if |error| > threshold_high)  
 high   → normal (if |error| < threshold_low)
 ```
 
-Provides **explainable and auditable** control-mode transitions.
+🧩 Provides **explainable and auditable** control-mode transitions.
 
 **Role:**  
-- supervises safety and mode selection  
-- gates whether adaptive assistance is permitted  
-- provides explicit fallback behavior  
+- 🧯 supervises safety and mode selection  
+- 🚦 gates whether adaptive assistance is permitted  
+- ↩️ provides explicit fallback behavior  
 
 ---
 
-## **2.3 Adaptive Assist Layer (NN / RL, A-type)**
-- applies a **bounded assist term** under FSM supervision  
-- improves recovery timing only within a verified operating region  
-- educational and reproducible (not a claim of universal optimality)  
+## 🧠 **2.3 Adaptive Assist Layer (NN / RL, A-type)**
+- 📐 applies a **bounded assist term** under FSM supervision  
+- ⚡ improves recovery timing only within a verified operating region  
+- 🎓 educational and reproducible  
+  *(not a claim of universal optimality)*  
 
-> **Note (Runtime Validity):**  
-> The recommended runtime configurations are **PID × FSM** and **PID × FSM × NN/RL (bounded)**.
+> **⚠️ Note (Runtime Validity):**  
+> The recommended runtime configurations are  
+> **PID × FSM** and **PID × FSM × NN/RL (bounded)**.
 
 ---
 
-## **2.4 LLM (Offline Design Assistant, A-type)**
-- used **exclusively outside the real-time control loop**  
-- supports **log analysis**, **design review**, and **documentation**  
-- may propose parameter updates, but does **not** execute control actions in real time  
+## 🧾 **2.4 LLM (Offline Design Assistant, A-type)**
+- 📴 used **exclusively outside the real-time control loop**  
+- 📊 supports **log analysis**, **design review**, and **documentation**  
+- 🛠️ may propose parameter updates, but does **not** execute control actions in real time  
 
-**Strict prohibitions:**  
-- no real-time I/O  
-- no direct gain injection during runtime  
-- no FSM state or transition control  
+**🚫 Strict prohibitions:**  
+- ❌ no real-time I/O  
+- ❌ no direct gain injection during runtime  
+- ❌ no FSM state or transition control  
 
 ---
 
@@ -236,7 +238,7 @@ Provides **explainable and auditable** control-mode transitions.
 | `04_hybrid_fsm_llm_demo.py` | Offline design-support demo (LLM is not in the real-time loop) |
 | `05_aitl_full_demo.py` | Conceptual AITL integration demo (ideal condition visualization) |
 |  |  |
-| `12_vi_current_control_sales_demo.py` | V–I current control comparison under aging & disturbance (Fixed PID / PID×FSM / AITL) |
+| `12_vi_current_control_sales_demo.py` | V–I current control comparison under aging & disturbance (Fixed PID / PID × FSM / AITL) |
 | `13_aging_sweep_delta_t.py` | Reliability metrics sweep vs aging (Δt, max e) |
 | `15_fsm_explainability_demo.py` | FSM explainability demo (why and when modes switched) |
 
@@ -248,12 +250,12 @@ supporting reliability-related design conclusions.
 
 # 🏃 4. Running the Main Demo
 
-```
+```bash
 cd demos
 python 05_aitl_full_demo.py
 ```
 
-Output:
+**Output:**
 
 ```
 ../data/aitl_full_demo_ideal.png
@@ -263,20 +265,20 @@ Output:
 
 # 🎓 5. Educational Value
 
-- emphasizes **architecture over tuning**
-- interpretable and **supervised** adaptive behavior
-- visual understanding of **mode switching and intervention**
-- suitable for teaching materials and **research prototypes with auditability**
+- 🧱 emphasizes **architecture over tuning**  
+- 🔍 interpretable and **FSM-supervised** adaptive behavior  
+- 👀 visual understanding of **mode switching and intervention**  
+- 📚 suitable for teaching materials and **research prototypes with auditability**
 
 ---
 
 # 🚧 6. Future Plans (Clarified)
 
 - **B-Type AITL** (reliability permission layer)
-- advanced FSM with multi-modes / hysteresis
-- nonlinear plants
-- **RL-based bounded adaptive tuning (ε-term, FSM-supervised)**
-- integration with AITL-H system
+- 🧠 advanced FSM with multi-modes / hysteresis
+- 🔀 nonlinear plants
+- 🎯 **RL-based bounded adaptive tuning (ε-term, FSM-supervised)**
+- 🧩 integration with AITL-H system
 
 > **Note (Scope Clarification):**  
 > LLM is **not planned** as a self-optimizing runtime controller.  
@@ -300,9 +302,9 @@ but to **identify the operational boundary** of adaptive control.
 
 The primary focus is **temporal reliability**:
 
-- recovery timing consistency (Δt)
-- degradation detectability
-- explicit criteria for **when adaptation must be restricted**
+- ⏱️ recovery timing consistency (Δt)
+- 🔎 degradation detectability
+- 🚫 explicit criteria for **when adaptation must be restricted**
 
 ---
 
@@ -320,10 +322,10 @@ The primary focus is **temporal reliability**:
 
 This result demonstrates that:
 
-- **all controllers degrade** as plant aging progresses  
-- **AITL improves recovery timing only within a limited aging range**
-- beyond that range, continued adaptation **does not preserve temporal reliability**
-- the degradation trend is **explicitly measurable via Δt**
+- 📉 **all controllers degrade** as plant aging progresses  
+- 📈 **AITL improves recovery timing only within a limited aging range**
+- ⛔ beyond that range, continued adaptation **does not preserve temporal reliability**
+- 📐 the degradation trend is **explicitly measurable via Δt**
 
 Crucially, this means:
 
@@ -339,9 +341,9 @@ This analysis does **not** argue that AITL is universally better.
 
 Instead, it establishes that:
 
-- adaptive control has a **finite, observable reliability boundary**
-- that boundary can be detected **before instability or failure**
-- Δt serves as a **design-time and run-time decision metric**
+- 🧭 adaptive control has a **finite, observable reliability boundary**
+- 🚨 that boundary can be detected **before instability or failure**
+- 🧮 Δt serves as a **design-time and run-time decision metric**
 
 In other words, the result answers:
 
@@ -403,9 +405,9 @@ monitored reliability conditions.
 
 Typical monitored quantities include:
 
-- **Δt**: recovery time / temporal reliability
-- **max‖e‖**: safety envelope (worst-case deviation)
-- **‖ΔKp‖ or dKp/dt**: adaptation aggressiveness (stability risk)
+- ⏱️ **Δt**: recovery time / temporal reliability
+- 📏 **max‖e‖**: safety envelope (worst-case deviation)
+- 🎚️ **‖ΔKp‖ or dKp/dt**: adaptation aggressiveness (stability risk)
 
 ---
 
@@ -446,17 +448,17 @@ not as a fixed design result, but as an **operational capability**.
 
 True Robust Control introduces the following design concepts:
 
-- **Uncertainty Δ as an observable state**, not a static worst-case bound
-- **Frequency-aware interpretation of degradation**
+- 🔄 **Uncertainty Δ as an observable state**, not a static worst-case bound
+- 📡 **Frequency-aware interpretation of degradation**
   - low-frequency: performance degradation
   - high-frequency: stability margin loss
   - input-side: actuator stress and saturation
-- **Proactive intervention before robustness guarantees collapse**
-- **Selective redesign of robustness weight functions**
+- 🛑 **Proactive intervention before robustness guarantees collapse**
+- 🧮 **Selective redesign of robustness weight functions**
   - $$W_s$$: performance demand  
   - $$W_t$$: robustness margin  
   - $$W_u$$: actuator protection
-- **Strict role separation**
+- 🧱 **Strict role separation**
   - FSM decides *when* to intervene
   - LLM decides *which design lever to move* (**offline only**)
   - Controllers execute safely without reasoning
