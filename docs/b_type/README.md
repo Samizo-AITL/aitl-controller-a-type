@@ -1,11 +1,3 @@
----
-title: "AITL Controller B-Type"
-description: "Reliability-first supervisory control architecture with deviation-based permissioned adaptation"
-layout: default
-nav_order: 1
-parent: "B-Type Architecture"
----
-
 # AITL Controller B-Type  
 ## Reliability-First Supervisory Control Architecture
 
